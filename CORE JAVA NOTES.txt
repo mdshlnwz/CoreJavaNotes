@@ -277,7 +277,7 @@ If a parent class is modified, it can unintentionally affect all child classes, 
 
 ACCESS MODIFIERS/SPECIFIERS
  
-ACTION							PRIVATE		DEFAULT		PROTECTED		PUBLIC
+ACTION						PRIVATE				DEFAULT				PROTECTED			PUBLIC
 Same package, Same class			Yes				Yes				Yes				Yes	
 Same package, Sub-class				No				Yes				Yes				Yes		
 Same package, Non-Sub class			No				Yes				Yes				Yes		
@@ -286,7 +286,7 @@ Different package, Non-Sub class		No				No				No				Yes
 
 SUMMARY
 PRIVATE				:-	Works within the same class.
-DEFAULT			:-	Works within the same package.
+DEFAULT				:-	Works within the same package.
 PROTECTED			:-	Works within the same package and also inherited classes of different packages.
 PUBLIC				:-	Works in all packages and all classes.
 
@@ -532,7 +532,7 @@ MARKER INTERFACES
 Empty interfaces are called as Marker Interfaces like Serialization and Deserialization.
 Marker interfaces are special types of interfaces that don't declare any methods but serve as tags to provide metadata or signal some behavior to the compiler or runtime.
 
-FUNCTIONAL INTERFACES
+FUNCTIONAL INTERFACES (SAM INTERFACES)
 It should have exactly one incomplete (abstract) method in it.
 Functional interfaces are commonly used in Streams API, event handling, threading, and various functional programming techniques in Java.
 The @FunctionalInterface annotation can be used to enforce functional interface behavior.
@@ -886,14 +886,14 @@ Minimized garbage collection pressure.
 
 COMPARISON TABLE
 
-Feature 			 					String 					 			StringBuilder 									StringBuffer
-Mutability 		 	Immutable (creates new object on modification) 	 Mutable (modifies content in place) 				 Mutable (modifies content in place)
-Thread-Safe		 	Yes (because it's immutable) 					 No (not thread-safe) 						 	Yes (synchronized methods for thread safety)
-Performance 		 	Slower (new object created on each change) 		 Fastest (no synchronization, single-threaded use) 		 Slower (synchronization overhead in multi-threaded context)
-Use Case 		 	Fixed or constant strings 						 Efficient string manipulation in single-threaded apps 	 String manipulation in multi-threaded environments
-Synchronization 	 	Not needed (immutable = no race conditions) 	 Not synchronized 								 Fully synchronized (all critical methods are synchronized)
-Memory Usage 	 	Higher (due to frequent object creation) 		 Efficient (modifies in place, less GC pressure) 		 Efficient but slightly more memory used due to sync locks
-Introduced In 		 	Java 1.0 									 Java 1.5 									 	Java 1.0
+Feature 			String 						StringBuilder 					StringBuffer
+Mutability 		Immutable (creates new object on modification) 	Mutable (modifies content in place) 			Mutable (modifies content in place)
+Thread-Safe		Yes (because it's immutable) 			No (not thread-safe) 					Yes (synchronized methods for thread 																	safety)
+Performance		Slower (new object created on each change) 	Fastest (no synchronization, single-threaded use) 	Slower (synchronization overhead in 																	multi-threaded context)
+Use Case 		Fixed or constant strings 			Efficient string manipulation in single-threaded apps 	String manipulation in multi-threaded 																	environments
+Synchronization 	Not needed (immutable = no race conditions) 	Not synchronized 					Fully synchronized (all critical methods 																are synchronized)
+Memory Usage 	 	Higher (due to frequent object creation) 	Efficient (modifies in place, less GC pressure) 	Efficient but slightly more memory used 																due to sync locks
+Introduced In 		Java 1.0 					Java 1.5 						Java 1.0
 
 JAVA COLLECTION FRAMEWORK
 Java Collection framework is a set of classes and interfaces which provide a ready-made architecture to store, retrieve, and manipulate groups of objects.
@@ -1007,14 +1007,14 @@ METHODS IN SEQUENCEDCOLLECTION INTERFACE
 4. getFirst()		: Retrieves the first element.
 5. getLast()		: Retrieves the last element.
 6. removeFirst()	: Removes and returns the first element.
-7. removeLast()	: Removes and returns the last element.
+7. removeLast()		: Removes and returns the last element.
 
 LIST INTERFACE
 This is a child interface of the collection interface. This interface is dedicated to the data of the list type in which we can store all the ordered collections of the objects. This also allows duplicate data to be present in it. 
 This list interface is implemented by various classes like ArrayList, Vector, Stack, etc. Since all the subclasses implement the list, we can instantiate a list object with any of these classes. 
 List <T> al = new ArrayList<> (); 			//for ArrayList
 List <T> ll = new LinkedList<> (); 			//for LinkedList
-List <T> v = new Vector<> (); 			//for Vector
+List <T> v = new Vector<> (); 				//for Vector
 Where T is the generic type of the object .
 
 IMMUTABLE LIST
@@ -1069,15 +1069,15 @@ Even though resizing is costly (O(n) because it copies everything), it happens r
 So, on average, the cost per add() operation is still very low across all operations. This idea is called amortized analysis.
 
 PERFORMANCE OF ARRAYLIST
-Operation	Time 				Methods						Complexity				Notes
-Access 						get(index)					O(1)						Very fast, because it uses indexing like a normal array.
-Insert at end 					add(element)					O(1) (amortized)			Usually O(1), but if resizing is needed, it takes extra time temporarily.
-Insert at specific index			add(index, element)				O(n)						Need to shift elements to the right to make space.
-Delete at specific index			remove(index)					O(n)						Need to shift elements to the left after removing.
-Search 						contains(), indexOf()			O(n)						Linear search, because no sorting is guaranteed.
+Operation	Time 			Methods			Complexity				Notes
+Access 					get(index)		O(1)			Very fast, because it uses indexing like a normal array.
+Insert at end 				add(element)		O(1) (amortized)	Usually O(1), but if resizing is needed, it takes extra time temporarily.
+Insert at specific index		add(index, element)	O(n)			Need to shift elements to the right to make space.
+Delete at specific index		remove(index)		O(n)			Need to shift elements to the left after removing.
+Search 					contains(), indexOf()	O(n)			Linear search, because no sorting is guaranteed.
 
 ✅ When to use ArrayList:											❌ Avoid ArrayList when:
-You need fast random access (get by index).								You do a lot of insertions/removals in the middle.
+You need fast random access (get by index).									You do a lot of insertions/removals in the middle.
 You mostly add/remove at the end.										In that case, LinkedList might be better.
 You don't do frequent inserts/deletes in the middle.
 
@@ -1118,10 +1118,10 @@ But if you need to move forward and backward frequently, or you need easier inse
 
 QUICK COMPARISON TABLE
 Feature						Singly Linked List			Doubly Linked List
-Pointers in Node				1 (next)					2 (next and prev)
-Direction						One-way					Two-way
-Memory Usage				Less						More
-Traversal						Only forward				Forward and backward
+Pointers in Node				1 (next)				2 (next and prev)
+Direction					One-way					Two-way
+Memory Usage					Less					More
+Traversal					Only forward				Forward and backward
 Deletion/Insertion				Bit harder				Easier
 
 CIRCULAR LINKED LIST
@@ -1147,17 +1147,17 @@ Movement happens by following the next and previous references, not by indexing 
 NULL ← [prev | data | next] ↔ [prev | data | next] ↔ [prev | data | next] → NULL
 
 PERFORMANCE OF LINKEDLIST
-Operation	Time 				Methods							Complexity				Notes
-Access 						get(index)						O(n)						Have to traverse node by node; no direct indexing.
-Insert at end/beginning			add(element)						O(1)						Fast because LinkedList maintains a tail reference.
-Insert at specific index			add(index, element)					O(n)						Need to reach that index first, then insert.
-Delete at specific index			remove(index)						O(n)						Need to reach that node first, then remove.
-Search 						contains(), indexOf()				O(n)						Linear search by traversing the nodes.
+Operation-Time 				Methods				Complexity						Notes
+Access 					get(index)			O(n)						Have to traverse node by node; no direct indexing.
+Insert at end/beginning			add(element)			O(1)						Fast because LinkedList maintains a tail reference.
+Insert at specific index		add(index, element)		O(n)						Need to reach that index first, then insert.
+Delete at specific index		remove(index)			O(n)						Need to reach that node first, then remove.
+Search 					contains(), indexOf()		O(n)						Linear search by traversing the nodes.
 
-✅ When to use LinkedList:																❌ Avoid LinkedList when:
-You have a lot of insertions and deletions, especially in the middle of the list.						You need fast random access by index (because LinkedList has O(n) access time).
-You don't need fast random access (you are okay with sequential access).							You mostly perform read-heavy operations (just accessing elements without modifying).
-You are implementing queue, deque, or stack-like structures where frequent add/remove 				You care a lot about memory (because each node has two extra pointers).
+✅ When to use LinkedList:								❌ Avoid LinkedList when:
+You have a lot of insertions and deletions, especially in the middle of the list.	You need fast random access by index (because LinkedList has O(n) access time).
+You don't need fast random access (you are okay with sequential access).	You mostly perform read-heavy operations (just accessing elements without modifying).
+You are implementing queue, deque, or stack-like structures where frequent add/remove 		You care a lot about memory (because each node has two extra pointers).
 happens at both ends.
 Memory overhead of extra pointers (next and prev) is acceptable for your use case.
 
@@ -1187,26 +1187,22 @@ Suppose capacity = 10 and we insert 10 elements — no problem, but when insert 
 New capacity = 10 × 2 = 20.
 
 PERFORMANCE OF VECTOR
-Operation						Methods								Time Complexity				Notes
-Access						get(index)							O(1)							Direct access through index; very fast.
-Insert at end					add(element)							O(1) (amortized)				Fast unless resizing happens (then resizing temporarily takes O(n)).
-Insert at specific index			insertElementAt(index, element)			O(n)							Need to shift elements to the right.
-Delete at specific index			remove(index) or removeElementAt(index)	O(n)							Need to shift elements to the left after removal.
-Search						contains(), indexOf()					O(n)							Linear search through elements.
+Operation			Methods					Time Complexity				Notes
+Access				get(index)				O(1)			Direct access through index; very fast.
+Insert at end			add(element)				O(1) (amortized)	Fast unless resizing happens (then resizing temporarily takes O(n)).
+Insert at specific index	insertElementAt(index, element)		O(n)			Need to shift elements to the right.
+Delete at specific index	remove(index) or removeElementAt(index)	O(n)			Need to shift elements to the left after removal.
+Search				contains(), indexOf()			O(n)			Linear search through elements.
 
-✅ When to use Vector:												❌ Avoid Vector when:
-You need a thread-safe dynamic array.									You work in a single-threaded environment (prefer ArrayList for better performance).
-Multiple threads might access and modify it concurrently.					You don't need synchronization overhead (Vector is synchronized, so it's slower for single-threaded apps).
+✅ When to use Vector:								❌ Avoid Vector when:
+You need a thread-safe dynamic array.				You work in a single-threaded environment (prefer ArrayList for better performance).
+Multiple threads might access and modify it concurrently.	You don't need synchronization overhead (Vector is synchronized, so it's slower for single-threaded apps).
 				
 INITIALIZATION
 Vector<Integer> v = new Vector<Integer>(n);
 
 STACK
-
-
 QUEUE INTERFACE
-
-
 PRIORITYQUEUE
 DEQUE
 
@@ -1258,15 +1254,15 @@ To prevent it uses other data structure like linked list for basic and tress for
 When a single key, value is stored it simply stored in the bucket because there is no collision yet but when two keys are stored at a same index it occurs collision and at that point the bucket convert into a linked list and when the size/node of linked list exceed 8 due to multiples collisions and the size of the hashmap simultaneously exceeds 64 then it also converted into a Self-Balancing Binary Search Tree which is a Red Black Tree.
 
 PERFORMANCE OF HASHMAP
-Operation					Time Complexity	Methods				Notes
+Operation			Time Complexity		Methods						Notes
 Insert (put key-value)		O(1) (average)		put(key, value)			Fast insertion unless hash collisions occur, then it can degrade.
-Access/Retrieve (by key)	O(1) (average)		get(key)				Direct access using hashcode, but depends on distribution.
+Access/Retrieve (by key)	O(1) (average)		get(key)			Direct access using hashcode, but depends on distribution.
 Delete (by key)			O(1) (average)		remove(key)			Fast removal if the hash is well-distributed; otherwise slower if collisions exist.
 Search (contains key)		O(1) (average)		containsKey(key)		Searches key quickly using hashing.
-Search (contains value)		O(n)				containsValue(value)	Values are searched linearly across buckets.
-
+Search (contains value)		O(n)			containsValue(value)		Values are searched linearly across buckets.
 
 INITIALIZATION
+Map<Integer,Integer?>map=new HashMap<>();
 
 TREEMAP
 LINKEDHASHMAP
@@ -1295,11 +1291,11 @@ If map.put(key, value) returns old value of the key, then the statement “map.p
 A HashSet achieves uniqueness by using a HashMap where elements are stored as keys, and because keys in a HashMap are unique, duplicate elements are automatically prevented.
 
 PERFORMANCE OF HASHSET 
-Operation	s				Methods						Time Complexity			Notes
-Add element				add(element)					O(1) (average case)			HashSet uses hash table; insertion is fast unless there are too many collisions.
-Remove element			remove(element)				O(1) (average case)			Deletion is fast because it finds the element using the hash function.
-Search for an element		contains(element)				O(1) (average case)			Direct lookup using hash codes.
-Iteration over elements		using for-each loop or iterator()	O(n)						You have to visit each element once during traversal.
+Operations			Methods				Time Complexity			Notes
+Add element			add(element)				O(1) 		HashSet uses hash table; insertion is fast unless there are too many collisions.
+Remove element			remove(element)				O(1) 		Deletion is fast because it finds the element using the hash function.
+Search for an element		contains(element)			O(1) 		Direct lookup using hash codes.
+Iteration over elements		using for-each loop or iterator()	O(n)		You have to visit each element once during traversal.
 
 ✅ When to use HashSet:											❌ Avoid HashSet when:
 You want fast insertion, deletion, and search.								You need to maintain insertion order → Use LinkedHashSet.
@@ -1322,23 +1318,23 @@ Not Thread-Safe: For thread-safe usage, wrap it with Collections.synchronizedSet
 PERFORMANCE OF TREESET
 The performance of TreeSet in Java depends on its internal implementation, which is based on a Red-Black Tree (a self-balancing binary search tree)
 Operation 		| Time Complexity 	|			 Reason
-add(E e) 			| O(log n) 		| Inserts and rebalances the Red-Black Tree
+add(E e) 		| O(log n) 		| Inserts and rebalances the Red-Black Tree
 remove(Object o) 	| O(log n) 		| Deletes and rebalances
 contains(Object o) 	| O(log n) 		| Binary search in the tree
-first(), last() 		| O(log n) 		| Follows tree edges to extreme ends
+first(), last() 	| O(log n) 		| Follows tree edges to extreme ends
 higher(), lower() 	| O(log n) 		| Tree navigation
-iterator() 			| O(n) 			| Traverses all elements in order
+iterator() 		| O(n) 			| Traverses all elements in order
 Why O(log n)?
 Because TreeSet uses a Red-Black Tree, which maintains a balanced structure, ensuring that the height of the tree stays in the order of log(n), giving logarithmic performance for insertions, deletions, and lookups.
 Why not O(1)?
 Unlike HashSet, which uses a hash table and offers O(1) average time for add, remove, and contains, TreeSet must maintain order, which takes extra work — hence O(log n).
 
-Use TreeSet when:														Do NOT use TreeSet when:
-You need elements sorted in natural or custom order.							You don’t care about element order → use HashSet
-You want to automatically eliminate duplicates.								You need to preserve insertion order → use LinkedHashSet
-You require range-based operations like:									You need to store null elements → use HashSet (allows one null).
-subSet(), headSet(), tailSet(), ceiling(), floor(), higher(), lower()					You require maximum performance for large datasets → HashSet is faster (O(1)).
-You can afford O(log n) time complexity.									Your elements don’t implement Comparable and no Comparator is provided
+Use TreeSet when:												Do NOT use TreeSet when:
+You need elements sorted in natural or custom order.					You don’t care about element order → use HashSet
+You want to automatically eliminate duplicates.						You need to preserve insertion order → use LinkedHashSet
+You require range-based operations like:						You need to store null elements → use HashSet (allows one null).
+subSet(), headSet(), tailSet(), ceiling(), floor(), higher(), lower()			You require maximum performance for large datasets → HashSet is faster (O(1)).
+You can afford O(log n) time complexity.						Your elements don’t implement Comparable and no Comparator is provided
 You don’t need to store null elements.
 You need to maintain a navigable sorted structure.
 
@@ -1356,24 +1352,24 @@ Underlying Structure: Hash table + Doubly-linked list→ Each element maintains 
 PERFORMANCE OF LINKEDHASHSET
 Operation 	| Time Complexity 	| Notes
 add() 		| O(1) 			| Constant time due to hash table; maintains insertion order
-remove() 		| O(1) 			| Fast removal using hash table and linked list pointers
+remove() 	| O(1) 			| Fast removal using hash table and linked list pointers
 contains() 	| O(1)			| Very fast lookups
-iteration 		| O(n) 			| Ordered, predictable iteration (faster than HashSet for this)
+iteration 	| O(n) 			| Ordered, predictable iteration (faster than HashSet for this)
 
 When to Use LinkedHashSet:											Avoid LinkedHashSet if:
 You want fast access like HashSet										You don’t care about insertion order → use HashSet
-You need to preserve insertion order									You want sorted elements → use TreeSet
+You need to preserve insertion order										You want sorted elements → use TreeSet
 You want to avoid duplicates											You need thread safety → use Collections.synchronizedSet(...) or ConcurrentSkipListSet
 You’re okay with slightly more memory overhead than HashSet
 
 COMPARISON SUMMARY
-Feature 				| HASHSET 		| LINKEDHASHSET 	| TREESET
+Feature 				| HASHSET 		| LINKEDHASHSET 		| TREESET
 Ordering 				| No order 		| Insertion order 		| Sorted order
-Duplicates 			| Not allowed 		| Not allowed 			| Not allowed
-Null allowed? 			| Yes (1 null) 		| Yes (1 null) 			| ❌ No (throws NullPointerException)
-Add/Remove/Search 	| O(1) 			| O(1) 				| O(log n)
-Iteration speed 		| Unpredictable 	| Predictable 			| Predictable
-Thread-safe? 			| ❌ 			| ❌ 				| ❌
+Duplicates 				| Not allowed 		| Not allowed 			| Not allowed
+Null allowed? 				| Yes (1 null) 		| Yes (1 null) 			| ❌ No (throws NullPointerException)
+Add/Remove/Search 			| O(1) 			| O(1) 				| O(log n)
+Iteration speed 			| Unpredictable 	| Predictable 			| Predictable
+Thread-safe? 				| ❌ 			| ❌ 				| ❌
 
 
 EXCEPTION
@@ -1400,17 +1396,17 @@ If any exception occurs in try block then the Java Runtime Environment (JRE) aut
 Now the Java will create exception object and that exception object, along with its details (type, message, stack trace),  it'll give it to catch block and the catch block will handle where it handle mean logging the error, notifying the user, or recovering gracefully the exception and then the further code will continue to run.
 
 EXCEPTION CLASS HIERARCHY 
-										   Object
-										Throwable
-										Exception																	Error
-Compile-Time Exception												Run-Time Exception
-1.	IOException														1.	ArithmaticException							1.	OutOfMemoryError
-	1.1	FileNotFoundException											2.	NullPointerException							2.	StackOverflowError
-	1.2	FileSystemException											3.	IndexOutOfBoundException						3.	VirtualMachineError
-	1.3	AccessDeniedException												3.1	ArrayIndexOutOfBoundException				4. 	Assertion Error
-2.	SQLException														4.	IllegalArgumentException
-	2.1	SQLSyntaxErrorException											4.1	NumberFormatException
-	2.2	SQLNonTransientError											5.	ClassCastException
+					Object
+					Throwable
+					Exception									Error
+Compile-Time Exception							Run-Time Exception
+1.IOException							1.	ArithmaticException			1.	OutOfMemoryError
+	1.1	FileNotFoundException				2.	NullPointerException			2.	StackOverflowError
+	1.2	FileSystemException				3.	IndexOutOfBoundException		3.	VirtualMachineError
+	1.3	AccessDeniedException					3.1	ArrayIndexOutOfBoundException	4. 	Assertion Error
+2.	SQLException						4.	IllegalArgumentException
+	2.1	SQLSyntaxErrorException					4.1	NumberFormatException
+	2.2	SQLNonTransientError				5.	ClassCastException
 3.	ReflectiveOperationExeption
 4.	ClassNotFoundException
 
