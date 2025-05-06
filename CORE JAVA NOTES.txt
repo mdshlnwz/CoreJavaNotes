@@ -1,0 +1,1630 @@
+																CORE JAVA CONCEPTS
+
+THE NEW KEYWORD
+It is used to create objects of class. whenever we use new keyword it automatically creates an instance of the object.
+Allocates memory for the new object in the heap, calls the constructor to initialize the object and returns the object's reference and stores it in a reference variable.
+It send request to the class to create object and once an object is created, it will get the object address and stored the address in a reference variable.
+className objectName=new className();					// create an instance (object)
+objectName.methodName();								// calling methods
+
+public class Main {
+    public static void main(String[] args) {
+        String name = new String("Shahnawaz");  				// using 'new' keyword
+        System.out.println(name);
+    }
+}
+
+OUTPUT
+Hello, World!
+
+STATIC AND NON STATIC MEMBERS
+
+STATIC
+Static members such as methods and variables uses static keyword to identify as a static members and they belongs to the class.
+We can't apply any OOPs laws in static because they are inheritable and so on.
+
+NON-STATIC
+Non Static methods and variables are created inside the class but outside the methods without using any specific keyword.
+It belongs to the object that's why whenever an object is created a copy of non static members is loaded into that object.
+It is essential for applying OOPs principals because OOPs principals are only applicable for objects that is non-static.
+
+public class Main {
+    static int staticVar = 10;     								// static variable
+    int nonStaticVar = 20;         							// non-static variable
+
+    static void staticMethod() {							//static method
+        System.out.println("Static method: " + staticVar);
+    }
+
+    void nonStaticMethod() {								//non-static method
+        System.out.println("Non-static method: " + nonStaticVar);
+    }
+
+    public static void main(String[] args) {
+        staticMethod();                     							// calling static method directly by class name bcz they belongs to classes
+        Main obj = new Main();             						// creating object
+        obj.nonStaticMethod();              						// calling non-static method using object
+    }
+}
+
+OUTPUT
+Static Variable: 10
+Non-Static Variable: 20
+
+STACK & GARBAGE COLLECTOR
+This is where local variables, method calls, and execution flow are maintained. Since the stack follows a last-in, first-out (LIFO) order, memory allocation and deallocation are highly efficient.
+Random Access Memory (RAM) divided into Stack and Heap Memory for the execution of the program.
+the program execution begins with the main method { and ends with }.
+when new keyword is initialized, an object is created in heap memory but the address of that object remains present in stack memory.
+program execution flow is maintained in stack with line by line execution and when the program execution is done and stack becomes empty then the objects present in heap memory are eligible for Garbage collector.
+Garbage collector automatically removes object which is no longer in use by the user.
+
+public class Main {
+    public static void main(String[] args) {
+        Main obj = new Main();  							// 'obj' is in stack, new Main() is in heap
+        obj.sayHello();         								// method call stored in stack
+    }
+
+    void sayHello() {
+        String message = "Hello, Java!";  						// 'message' is in stack, string is in heap
+        System.out.println(message);
+    }
+}
+
+OUTPUT
+Hello, Java!
+
+TYPES OF VARIABLES
+
+LOCAL VARIABLE
+local variables are created inside a method and access within the method not outside that method.
+without initialization we cannot use it. This does not means that without initialization it occurs error, no but when we use that variable without initialization then we see an error to initialize that variable before using. 
+
+STATIC VARIABLE
+Static variables are created inside a class but outside the method using static keyword refereeing that it belongs to the class module.
+it is not mandatory to initialize static variables so if we don't initialize it then a default value will be assign to that variable according to data type of the variable like for int-0, float-0.0f, long-0L, Boolean-false and so on.
+It can be access throughout the program like a global variable since the concept of global variable is not available in java so we can say that static variable is act as a global variable.
+One major benefit of static variables is memory efficiency—instead of creating multiple copies in different instances, a single copy is maintained throughout the program.
+The name of local and static variable can be same, this does not effect the accessing process of both variables because local variables are stored in stack memory, while static variables exist in the method area of the heap memory. So no matter what the name is, the calling/accessing process of both variable is different.
+
+NON-STATIC VARIABLE
+Non Static variables are created inside the class but outside the methods without using any specific keyword.
+These variables belongs to the objects so without object creation we cannot use it.
+Same as static variables it is not mandatory to initialize static variables so if we don't initialize it then a default value will be assign to that variable according to data type of the variable like for int-0, float-0.0f, long-0L, Boolean-false and so on.
+Static and non-static variables cannot be same.
+
+REFERANCE VARIABLE
+Reference variable data type is itself a class name and it is used to store object address rather than the object itself and can store null value if object is not created.
+
+public class Main {
+    static int staticVar;       												// static variable
+    int nonStaticVar;           												// non-static variable
+
+    public static void main(String[] args) {
+        int localVar = 5;       												// local variable
+        System.out.println("Local Variable: " + localVar);
+
+        System.out.println("Static Variable: " + staticVar);  						// default 0
+
+        Main obj = new Main();   											// reference variable 'obj'
+        System.out.println("Non-Static Variable: " + obj.nonStaticVar);  				// default 0
+
+        Main ref = null;         												// reference variable with null
+        System.out.println("Reference Variable (null): " + ref);
+    }
+}
+
+OUTPUT
+Local Variable: 5
+Static Variable: 0
+Non-Static Variable: 0
+Reference Variable (null): null
+
+METHODS TERMINOLOGY
+
+VOID KEYWORD
+It is a return type of method that does not return any value.
+Instead of providing a result, these methods typically perform actions like printing output, modifying variables, or interacting with objects.
+
+RETURN KEYWORD
+It is also a return type of method and it is used to control to methods calling statements that is allowing the method to exit early and stop further execution.
+It will be used only inside void type methods and also it is optional to use.
+
+RETURN VALUE KEYWORD
+It is used when a specific returning data type is used with the method, so not to use with void type because it does not return anything.
+It will return value and control to methods calling statements and it is mandatory to use.
+It helps control flow because once the  statement is executed, the method stops further execution and sends the value back.
+
+public class Main {
+    
+    void greet() {
+        System.out.println("Hello!");
+        return;  													// optional, just exits the method
+    }
+
+    int square(int x) {
+        return x * x;  												// returns a value, mandatory
+    }
+
+    public static void main(String[] args) {
+        Main obj = new Main();
+        obj.greet();                     										// void method
+        int result = obj.square(5);     									// method returns a value
+        System.out.println(result);    									// prints 25
+    }
+}
+
+OUTPUT
+Hello!
+25
+
+CONSTRUCTOR
+Whenever an object is created a constructor is called automatically with the same name as the class.
+It does not return any value, not even "void". they don't have a return type at all. So when we use void keyword and then create a constructor then it is no longer a constructor it is treated as non static method.
+Unlike regular methods, constructors initialize objects rather than returning values. That’s why their syntax doesn't include any return type.
+Constructors cannot be inherited from one class to another class.
+
+DEFAULT CONSTRUCTOR
+when we do not create constructor in .java file then during compilation, the compiler automatically  creates an empty body with no arguments/parameters is added in .class file and hence when an object is created with zero arguments/parameters, we do not see any error.
+if we created an object with arguments/parameters then this default constructor does not work here because it has zero arguments/parameters. To match with the defined object we also need to define a parameterized constructor explicitly.
+Default constructors are not applicable when objects with and without parameters/arguments are created together in the class. 
+
+CONSTRUCTOR OVERLOADING
+when we create more than one constructor with same name but different numbers of arguments/parameters or even different types of arguments/parameters, it is known to be constructor overloading.
+
+CONSTRUCTOR CHAINING
+it is a mechanism in which one constructor calls another constructor within the class and creates a chain of constructors calls.
+this() keyword is used to call another constructor within the same class.
+
+THIS() KEYWORD
+this() is a special reference variable that holds the object address of current object running in the program and syntax as this.(nonStaticMember).
+Using this() keyword, we can access non-static members of the class i.e. variables as well as methods and should not use it inside a static method. 
+Perhaps static members such as variables and methods are also accessible by this() keyword but it is a wrong approach to accessing them since static members belongs to class not objects.
+this() keyword is used to call another constructor within the same class and while calling constructor this() keyword should be first statement not second or so on in another constructor.
+
+public class Student {
+    
+    String name;
+    int age;
+
+    Student() {										 		// Default constructor 
+        this("Unknown", 0);  									// Constructor chaining(using this() to call parameterized constructor); must be the first statement
+        System.out.println("Default constructor called");
+    }
+
+    Student(String name, int age) {						 		// Parameterized constructor
+        this.name = name;     									// Using this to refer to current object
+        this.age = age;
+        System.out.println("Parameterized constructor called using this");
+    }
+
+    void display() {
+        System.out.println("Name: " + this.name + ", Age: " + this.age);  // Using this to access non-static members
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student();             						// Calls default constructor
+        Student s2 = new Student("Alice", 22);  					// Calls parameterized constructor
+        s1.display();
+        s2.display();
+    }
+}
+
+OUTPUT
+Parameterized constructor called using this
+Default constructor called
+Parameterized constructor called using this
+Name: Unknown, Age: 0
+Name: Alice, Age: 22
+
+INSTANCE INITIALIZATION BLOCK (IIB)
+Every time when an object is created then before calling the constructor, IIB is called and it helps to assign the complex initialization logic of non-static variables that cannot be handled by simple assignments.
+IIB runs every time an object is created, every new object triggers the IIB before calling the constructor, ensuring proper initialization.
+If we have more than one IIBs, then it will run in top-to-bottom sequence as it defined in the class. 
+
+STATIC INITIALIZATION BLOCK (SIB)
+Like IIB, SIB is also a special type of block in java but just for static members such as methods and variables that runs automatically before the main method executed and the order of execution for having multiple SIBs is same as the IIBs i.e. top-to-bottom.
+Executes only once during class loading, unlike IIB, which runs every time an object is created.
+If we have IIBs, SIBs, constructors, regular method and main method then the order of execution is as- SIB->main method()->IIB->constructor->regular method->print statement executed.
+
+public class Main {
+static {																// Static Initialization Block (SIB)
+        System.out.println("Static Initialization Block (SIB) executed.");
+    }
+    {																	// Instance Initialization Block (IIB)
+        System.out.println("Instance Initialization Block (IIB) executed.");
+    }
+    public Main() {														// Constructor
+        System.out.println("Constructor executed.");
+    }
+    public static void main(String[] args) {									// Main method
+        System.out.println("Main method executed.");
+
+Main obj = new Main();													// Creating an object of Main class (Triggers IIB and Constructor)
+Main obj2 = new Main();												// Creating another object of Main class (Triggers IIB and Constructor again)
+    }
+}
+
+OUTPUT
+Static Initialization Block (SIB) executed.
+Main method executed.
+Instance Initialization Block (IIB) executed.
+Constructor executed.
+Instance Initialization Block (IIB) executed.
+Constructor executed.
+
+
+OBJECT ORIENTED PROGRAMMING PRINCIPALS/LAWS/CONCEPTS
+
+INHERITANCE
+It helps to reuse the components/behavior of a class called as base/super/parent from an another class called his child/inherited/sub class. Like if a class inherit the members of a class that is parent/base/super class is able to use the components( methods and variables). The class which is using inherited components now refers as a child/inherited/sub-class.
+In Java, classes does not support multiple inheritances because of the diamond problem but support interfaces as well as it doesn't support hybrid inheritance.
+
+TYPES OF INHERITANCES
+In general, there are 5 types of inheritances
+1. Single Inheritance			:-	A single child class has a single parent class.
+2. Multiple Inheritance			:- 	A single child class has more than one parent classes.
+3. Multi-level Inheritance		:- 	A single class has a single parent class which also have a single parent class.
+4. Hierarchical Inheritance		:- 	More than one child classes have a single parent class.
+5. Hybrid Inheritance			:- 	Combination of types of inheritances.
+
+DIAMOND PROBLEM
+In diamond problem, a multiple inheritance structure is formed but when a child is inherited from more than one parent means that if a child class have more than one parent class as simple as when a child class have properties/behaviors of two different classes, then at this situation it creates a confusion/ambiguity that which class property will apply on the child class.
+
+DRAWBACKS
+Child classes depend on parent classes, leading to tight coupling, code can become difficult to maintain if multiple classes are tightly linked.
+If a parent class is modified, it can unintentionally affect all child classes, causing unexpected behaviors, making changes in a parent class might require modifications across several child classes, leading to more work.
+
+ACCESS MODIFIERS/SPECIFIERS
+ 
+ACTION							PRIVATE		DEFAULT		PROTECTED		PUBLIC
+Same package, Same class			Yes				Yes				Yes				Yes	
+Same package, Sub-class				No				Yes				Yes				Yes		
+Same package, Non-Sub class			No				Yes				Yes				Yes		
+Different package, Sub class			No				No				Yes				Yes		
+Different package, Non-Sub class		No				No				No				Yes
+
+SUMMARY
+PRIVATE				:-	Works within the same class.
+DEFAULT			:-	Works within the same package.
+PROTECTED			:-	Works within the same package and also inherited classes of different packages.
+PUBLIC				:-	Works in all packages and all classes.
+
+ACCESS MODIFIERS ON CONSTRUCTORS
+
+PRIVATE
+When we make constructors private, then that class object cannot be created in different class. Simply means that a class with private constructor is not eligible for inheritance.
+
+DEFAULT
+When we make constructors default, then that class object cannot be created in different package. Simply means that a class with default constructor is not eligible for inheritance in different package it can only be inherited within the package.
+
+PROTECTED
+When we make constructors protected, then that class object cannot be created in different package like default, we cannot access directly on different packages but indirectly using inheritance we can access the object.
+
+To create an object of a class with a protected constructor in a different package:
+Extend the class in another package.
+Call the constructor using  inside the subclass.
+Create an instance of the subclass, which internally calls the parent constructor.
+
+PUBLIC 
+When we make constructors public, then that class object cannot be created across all packages. Simply means that a class with default constructor is eligible for inheritance in across all packages.
+
+ACCESS MODIFIERRS ON CLASSES
+A class can be only public and default, it can't be private or protected.
+
+SUPER() KEYWORD
+super() refers to the immediate parent class object and it is used inside a child class to access things from its parent class.
+Access parent class variables (if child has same variable name).
+Call parent class methods (if child overrides the method).
+Call parent class constructor (must be the first line in child constructor).
+super() must be the first statement inside a child class constructor if used.
+If you don’t write super(), Java automatically calls the parent's no-arg constructor.
+super is very useful in inheritance concepts!
+
+class Parent {										// Superclass
+    String name = "Parent Class";
+
+    Parent() {										// Constructor
+        System.out.println("Parent Constructor Called");
+    }
+
+    void greet() {									// Method
+        System.out.println("Hello from Parent Class");
+    }
+}
+
+class Child extends Parent {							// Subclass inheriting Parent class
+    Child() {										// Constructor
+        super();  										// Calls the parent class constructor
+        System.out.println("Child Constructor Called");
+    }
+
+   @override										// Overriding method from Parent class
+    void greet() {
+        super.greet();  									// Calls the parent class method
+        System.out.println("Hello from Child Class");
+    }
+
+    void displayName() {								 // Method to demonstrate super() with variable access
+        System.out.println("Accessing parent class variable: " + super.name);
+    }
+}
+
+public class Main {									// Main class to test inheritance and access modifiers
+    public static void main(String[] args) {
+        // Creating an object of Child class
+        Child child = new Child();
+        child.greet();  									// Calls the overridden greet method in Child class
+        child.displayName(); 							// Access parent class variable through child class
+    }
+}
+
+OUTPUT
+Parent Constructor Called
+Child Constructor Called
+Hello from Parent Class
+Hello from Child Class
+Accessing parent class variable: Parent Class
+
+POLYMORPHISM
+By its name Poly-Many and Morph-Form.
+Here we develop a feature such that it can take more than one forms and it is only applicable on methods(functions).
+flexibility: The same method name can serve different use cases.
+Extensibility: Allows easy modification and enhancement of behaviors.
+Reduces redundancy: Avoids unnecessary method names for similar logic.
+
+TYPES OF POLYMORPHISM
+1. Over-Loading (Compile-Time Polymorphism)
+When we create more than one method with same name but different numbers of arguments/parameters or even different types of arguments/parameters, it is known to be method overloading or just overloading.
+Method overloading enhances code reusability, avoids unnecessary method names, and is resolved at compile-time.
+
+2. Over-Riding (Run-Time Polymorphism)
+In over-riding or method over-riding we modify the logic of inherited method in inherited class.
+The method in the child class must have the same name, return type, and parameters as the parent class.
+The method in the parent class must be accessible (i.e., not private).
+An annotation to use for method overriding in Java is @overriding. This annotation helps ensure that a method in the child class is correctly overriding a method from its parent class. If there is a mismatch in method name, parameters, or return type, the compiler will generate an error.
+While over-riding the access scope of inherited method is broader or wider than its parent class otherwise it's does not work.
+Static members cannot be inherited hence here over-riding is not allowed.
+
+class Animal {										// Parent class
+    void sound() {									// Method in parent class
+        System.out.println("Animal makes a sound"); 		// Output for general animal sound
+    }
+}
+
+class Dog extends Animal {							// Child class inherits from Animal class
+    @Override										// Method Overriding in child class
+    void sound() {
+        System.out.println("Dog barks"); 					// Output for dog sound (overridden method)
+    }
+    void sound(String soundType) {						// Method Overloading in child class (same method name, different parameters)
+	System.out.println("Dog makes a " + soundType); 	// Output with specific sound type (overloaded method)
+    }
+}
+
+public class Main {									// Main class to test Polymorphism
+	public static void main(String[] args) {
+        Animal animal = new Animal();  					// Creating object of Animal class
+        animal.sound();  								// Calling parent class method
+
+        Dog dog = new Dog();  							// Creating object of Dog class
+        dog.sound();  									// Calling child class method (overridden method)
+        dog.sound("woof");  							// Calling overloaded method with a parameter
+    }
+}
+
+OUTPUT
+Animal makes a sound
+Dog barks
+Dog makes a woof
+
+ABSTRACTION
+In abstraction, we hide the implementation details of object and only show its essential features and to achieve this we uses interfaces and abstract classes.
+Hides complexity → Prevents users from interacting with unnecessary details.
+Improves security → Only essential functionalities are exposed.
+Enhances code flexibility → Changes in implementation don't affect users.
+
+abstract class Vehicle {								// Abstract class defining abstract and non-abstract methods
+    abstract void start();             						// Abstract method (must be implemented by subclass)
+    void fuelType() {                 	 					// Concrete method with implementation
+        System.out.println("Uses petrol or diesel");  			// Common message for all vehicles
+    }
+}
+
+interface Electric {									// Interface defining abstract behavior
+    void charge();                     							// Abstract method (implicitly public and abstract)
+}
+
+class Car extends Vehicle implements Electric {			// Subclass inherits from abstract class and implements interface
+    @Override
+    void start() {
+        System.out.println("Car starts with key ignition");  	// Concrete implementation
+    }
+
+    @Override
+    public void charge() {
+        System.out.println("Car is charging at EV station");  	// Implementation of interface method
+    }
+}
+
+public class Main {									// Main class to test abstraction
+    public static void main(String[] args) {
+        Vehicle myCar = new Car();     					// Upcasting: abstraction in action
+        myCar.start();                 							// Calls overridden method
+        myCar.fuelType();              						// Calls method from abstract class
+
+        Electric ev = new Car();       						// Interface reference pointing to Car
+        ev.charge();                   							// Calls method from interface
+    }
+}
+
+OUTPUT
+Car starts with key ignition
+Uses petrol or diesel
+Car is charging at EV station
+
+
+ENCAPSULATION
+Encapsulation in Java bundles data (variables) and methods (functions) within a class, forming a single unit or module.
+To achieve encapsulation we have to do the following changes in our class:-
+1. Make variables private to avoid direct access.
+2. Define getters and setters in public access by which we should be able to store and read the value of variables. 
+Data Hiding → Variables are private and not accessible directly from outside the class.
+Controlled Access → Getters & setters regulate access to private members.
+Modularity → Improves code organization and security.
+Prevents Unauthorized Changes → Encapsulation ensures that changes follow validation logic.
+
+class Account {										// Class demonstrating encapsulation
+    private String ownerName;     							// Private variable - not directly accessible outside
+    private double balance;       							// Private variable to hold account balance
+
+    public String getOwnerName() {						// Public getter for ownerName
+        return ownerName;         							// Allows reading owner name
+    }
+
+    public void setOwnerName(String name) {	 			// Public setter for ownerName
+        this.ownerName = name;    							// Allows setting owner name
+    }
+
+    public double getBalance() {							// Public getter for balance
+        return balance;           								// Allows reading balance
+    }
+
+    public void setBalance(double amount) {					// Public setter for balance with validation
+        if (amount >= 0) {        								// Validation logic for setting balance
+            this.balance = amount;
+        } else {
+            System.out.println("Balance cannot be negative."); 		// Error message if validation fails
+        }
+    }
+}
+
+public class Main {										// Main class to test encapsulation
+    public static void main(String[] args) {
+        Account acc = new Account();       					// Creating Account object
+
+        acc.setOwnerName("Shahnawaz");     					// Setting owner name using setter
+        acc.setBalance(5000.0);            						// Setting balance using setter
+
+        System.out.println("Account Holder: " + acc.getOwnerName()); 		// Reading name via getter
+        System.out.println("Balance: ₹" + acc.getBalance());         			// Reading balance via getter
+
+        acc.setBalance(-1000.0);           						// Trying to set invalid balance (will trigger validation)
+    }
+}
+
+OUTPUT
+Account Holder: Shahnawaz
+Balance: ₹5000.0
+Balance cannot be negative.
+
+INTERFACES
+It consists of incomplete methods means it just have defined methods without their logic implementation.
+It acts like a contract on the classes i.e. its all incomplete methods should be completed or implemented in the class.
+It forces class to have same method name which results in good designing.
+It supports multiple inheritance because there is no logic implementation is written in parent interfaces, so there is not ambiguity in the child class.
+We can't create incomplete static methods interfaces because static methods are inheritable.
+By default, all variables are in interfaces are final and static and we can't create instance variable.
+Code becomes more modular, allowing different implementations while maintaining common functionality.
+No objects and constructors creation.
+
+MARKER INTERFACES
+Empty interfaces are called as Marker Interfaces like Serialization and Deserialization.
+Marker interfaces are special types of interfaces that don't declare any methods but serve as tags to provide metadata or signal some behavior to the compiler or runtime.
+
+FUNCTIONAL INTERFACES
+It should have exactly one incomplete (abstract) method in it.
+Functional interfaces are commonly used in Streams API, event handling, threading, and various functional programming techniques in Java.
+The @FunctionalInterface annotation can be used to enforce functional interface behavior.
+Used for lambda expressions, making code more concise.
+It supports multiple inheritance when the interface has only one incomplete method preventing conflicts between implementations.
+
+ABSTRACT CLASSES AND METHODS
+An abstract class can consists of both complete(concrete) and incomplete(abstract) methods in it.
+An object of abstract can't be created because of incomplete methods present in it perhaps we can create main method inside abstract classes.
+We can create both static and non-static members inside abstract class and also can create instance variable in it.
+Inside abstract classes incomplete methods should have abstract keyword.
+It doesn't supports multiple inheritance because of complete methods present in it.
+
+LAMBDAS EXPRESSION
+Lambda expressions in Java provide a concise way to represent anonymous functions, making functional programming much easier. They allow you to pass behavior as arguments and work seamlessly with functional interfaces.
+Lambda expressions enhance code readability and improve performance when used properly.
+It removes boilerplate code, no need for full method definitions.
+(parameters) -> { expression }
+
+DEFAULT KEYWORD
+We can create complete methods using default keyword in interfaces.
+Before Java 8, interfaces could only have abstract methods (method signatures without a body) then Since Java 8, we can write default methods in interfaces meaning methods that have a body (implementation).
+Using the default keyword inside an interface, we can create methods with a complete body, allowing interfaces to have both abstract methods and fully implemented methods.
+This was introduced mainly to allow developers to add new methods to interfaces without breaking the classes that already implement those interfaces.
+
+OPTIONAL CLASS
+When we access non-static members using a null reference variable, a NullPointerException is thrown. To avoid such situations, we use the Optional class, which provides a safe way to handle possible null values without risking an exception.
+It acts as a container that may or may not contain a non-null value.
+Instead of returning null, you return an Optional object.
+It forces you to explicitly handle the case where a value might be absent.
+
+SCANNER CLASS
+It is used to read input from various sources, including user input from the console (System.in), in different data types, files, and strings.
+It can read and process integers, doubles, strings, and even individual words and also allows parsing based on whitespace or custom delimiters.
+
+LOOPS
+Loops are a fundamental concept in programming that allow us to repeatedly execute a block of code over a data structure, such as arrays, lists, or collections.
+
+TYPES OF LOOPS
+
+FOR-LOOP
+For loop can be used when we already know the number/limit of iteration.
+It is perfect when you know beforehand how many times an action needs to be repeated.
+It has a for body with initializing value, condition/terminating value, and an increment operator over the loop, if anyone is missing, the loop might goes into an infinite loop.
+for(int i=?; i(<,=,>),i++)){
+block of code;
+}
+
+WHILE LOOP
+The while loop in Java is great for situations where the number of iterations is not known beforehand—it continues running as long as the condition remains true.
+Checks the condition first – If false , the loop won't run at all.
+Can result in infinite loops if the loop variable isn't updated properly.
+Useful for unknown iteration counts – Perfect for reading user input or handling dynamic data.
+while(condition){
+block of code
+i++;
+}
+
+DO WHILE LOOP
+This loop is similar to the while loop, but with one key difference—it executes the loop body at least once, even if the condition is false.
+do {
+block of code
+}while{
+block of code
+}
+
+FOR EACH LOOP
+The for-each loop (also called an enhanced for loop) is a simplified way to iterate over arrays and collections in Java. It eliminates the need for indexing and makes code more readable.
+Improves Readability – No need for index variables.
+Avoids Common Errors – No risk of index out-of-bounds exceptions.
+Works with any iterable collection – Can be used with lists, sets, and other Java collections.
+Cannot modify the collection while iterating and also cannot access the index of an element directly.
+
+BREAK STATEMENT
+The break statement in Java is used to exit a loop or switch statement immediately when a specific condition is met. It's particularly useful for controlling the flow of a program and avoiding unnecessary iterations.
+Improves program efficiency by reducing unwanted processing.
+
+CONTINUE STATEMENT
+The continue statement in Java is used to skip the current iteration of a loop and move to the next one. Unlike , break which completely exits the loop, continue allows the loop to keep running but skips certain steps based on a condition.
+When the conditions met in continue statement, at that specific situation the loop skips that part and goes back to the loop.
+
+SWITCH CASE STATEMENT
+This is used for decision-making when there are multiple possible values for a variable. Instead of writing multiple if-else conditions, switch  provides a cleaner and more efficient way to execute different cases.
+The default case runs when no other cases match like else part.
+
+Syntax:
+switch (expression) {
+    case value1:
+        block of code
+        break;
+    case value2:
+        block of code
+        break;
+    default:
+        block of code
+}
+
+DATA STRUCTURE WITH ARRAYS
+Arrays are the fundamental data structure and one of the most basic yet powerful data structure in Java. They store multiple elements of the same data type in contiguous memory locations, allowing efficient indexing and retrieval.
+Fixed Size – Once declared, their size cannot be changed.
+Indexed Access – Elements are accessed using an index (arr[0], arr[1] , etc.).
+Homogeneous Storage – All elements must be of the same data type.
+Memory Efficiency – Contiguous allocation allows fast retrieval.
+Syntax- int arr[]=new int[n];
+where int is the data type of elements, arr is reference variable which holds the memory addresses of the elements in arrays, pointing to the array object in the heap, new creates an objects of array and n is the size of the array.
+
+MULTI-DIMENSIONAL ARRAYS
+Arrays with more than one dimension, such as 2D arrays (matrices) or even higher dimensions.
+It allow storing data in multiple dimensions, like a table(rows and column) or grid.
+Syntax- int arr[][]=new int[n][m];
+
+STRING CLASS
+It is a final class in Java used to store string data type objects. 
+Strings in Java are immutable, meaning once they are created, their values cannot be changed. This immutability makes string manipulation more efficient in terms of performance and security.
+
+STRING POOL
+It is a special memory location in heap memory which stores only strings values/literals. This mechanism helps optimize memory usage and performance.
+When we create a String literal, Java first checks if that same value exists in the String Pool or not, if it does, Java returns the reference to the existing string instead of creating a new object because strings are immutable and if it doesn’t, then Java creates a new String object in the pool.
+String s1="mike";
+String s2="mike"; 	// Since s1 and s2 are has same value, their memory location will also be same.
+String s3="hike";	// s3 has a separate memory.
+So	s1 == s2		//true, comparing memory address
+	s1 == s3		//false
+	s1.equals(s2)	//true, comparing values
+	s1.equals(s3)	//false
+	
+These are knowns as intern syntax of initializing string variable.
+
+NEW KEYWORD WITH STRINGS
+String s4=new String("like");
+Here, new keyword creates new objects with different memory address every time we use it.
+It forces the creation of a new String object in the heap memory, even if is already exists in the String Pool. This means it will have a different memory address.
+String s1="mike";
+String s2=new String ("mike");
+String s3=new String("mike");
+Even though both strings same value, their memory allocation differs due to their initialization methods.
+String literals (s1) are stored in the String Pool inside heap memory whereas s2 create a new object in heap memory, separate from the pool.
+s1 == s2; 		// false, because now they have different memory locations
+s1.equals(s2);	 // true, because they still contain the same value.
+s2 == s3;		// false
+
+intern()
+It can be used to add a string to the string pool explicitly even when the string is created with new keyword.
+When intern() is called on a string, Java checks if the same value exists in the String Pool, if it already exists, it returns the reference to the existing pooled object otherwise if it doesn't exist, it adds the string to the pool and returns its reference.
+This is useful for memory optimization, especially when dealing with a large number of identical strings.
+String s1="mike";
+String s2=new String("mike").intern();
+String s3=new String("hike").intern();
+s1 == s2; 		// true, because now they have same memory locations after adding s2 in string pool.
+s1.equals(s2);	// true, because they still contain the same value.
+s2 == s3;		// false
+By using it , Java optimizes memory usage, ensuring duplicate strings aren’t unnecessarily stored in heap memory.
+
+length()
+It returns the number of characters in a string, including spaces and special characters.
+
+EMPTY STRINGS
+Strings with zero characters, no literals but object was created.
+An empty string in Java is a string object that contains zero characters, yet still exists in memory.
+String s1 = "";
+length=0;
+
+NULL STRINGS
+String object is not created in the heap memory.
+Null Strings in Java refer to string variables that do not point to any object in heap memory.
+String str = null;
+Calling length() to str that is a null string causing NullPointerException.
+
+isEmpty()
+isEmpty() is a method in String class in java.util package which returns true if the string has zero literals except white spaces. Spaces count as characters, so " "  is not empty.
+
+isBlank()
+This is also a part of string class with almost same work like isEmpty(), the only difference is it does not count spaces as characters as it ignores white spaces.
+If a string has zero characters even with white spaces it still returns true.
+It only returns false if the string contains non-space characters.
+
+COMPARISON IN STRINGS
+
+1. ( == ) equal to operator
+It compares the memory address of the string literals present in the heap memory, not actual string content.
+If two string variables refer to the same memory address,  returns true.
+If they reference different objects, it returns false—even if the string values are identical.
+
+2. equals() method
+It compares the string values of the string literals rather than memory addresses.
+It is case-sensitive so be careful while comparing otherwise it gives unexpected results. 
+Use it when you want strict comparison with exact case.
+
+	2.1 equalsIgnoreCase() method
+	If we want to compare free case-sensitive string literals then we have to use it.
+	Use it when case differences shouldn’t matter, such as user input validation.
+
+3. compareTo() method
+This method in Java is part of the comparable interface and is used to lexicographically compare two strings based on Unicode values of their characters.
+Returns 0  → If both strings are exactly the same.
+Returns a positive value (>0) → If the first string comes after the second one lexicographically.
+Returns a negative value (<0) → If the first string comes before the second one lexicographically.
+
+String a = "java";
+String b = "python";
+It first take the first characters of both strings and compare it, like in above example (j == p),  j (Unicode 106) is compared to p (Unicode 112), and 106-112=-6
+String c = "aab"
+String d = "aac"
+Here when comparing a==a, its gives 0 and goes the next characters
+now comparing b == c, results -1
+It does NOT compare based on alphabetical index but rather Unicode values.
+It compares character-by-character, stopping at the first difference.
+It’s commonly used in sorting operations, like when working with collections .
+
+CASE CHECK AND CASE CONVERSION
+
+1. isUpper()
+It is used to check whether a character is in upper case or not.
+It returns true if the string is in upper case otherwise returns false.
+
+2. isLower()
+It is used to check whether the character is in lower case or not.
+It returns true if the string is in lower case otherwise returns false.
+These both apply to characters, not full strings.
+
+3. toUpper()
+It is used to convert a lower case string with an upper case string.
+
+4. toLower()
+It is used to convert a upper case string with an lower case string.
+These both are apply to full strings.
+
+trim()
+It is used to remove white spaces just before and after the full strings not in between the strings.
+It is also used to remove the effects of special characters like a new line (/n) as well as new tab (/t).
+
+charAt()
+It reads the characters in the string with indexing value starting from 0.
+It is used to retrieve a character at a specific index in a string. Since indexing starts at 0, the first character is at index 0 , the second at index 1 , and so on.
+
+startWith() and endWith()
+It returns true if searching for a string which starts and ends with a given specific character.These methods in Java check whether a string begins or ends with a specific sequence of characters.
+startWith() returns true if the string starts with the given prefix.
+endWith() returns true if the string starts with the given prefix.
+Both methods are case-sensitive.
+We can check partial matches by providing a substring.
+Works well in validating user input, like checking file extensions.
+
+STRING CONVERSION METHODS
+
+1. ADDING EMPTY STRING
+If we want to convert any primitive data type into a string then just concate with the empty strings automatically makes them a string.
+int num = 42;
+String strNum = num + "";	 // Implicit conversion to String
+
+2. String.valueOf()
+This method in Java is used to convert various data types into a string representation.
+int num = 100;
+String.valueOf(num);
+
+SEARCHING SUBSTRING IN STRING
+
+1. contains() -by value
+This method returns true if the given substring is present in the string otherwise returns false.
+
+2. indexOf()
+This method is used to find the number of first occurrence of a substring or characters within a string, if does not find returns -1.
+
+join()
+Used to concatenate elements of an array or an iterable into a single string, with a specified delimiter (" ", " , ","-").
+
+replace()
+Used to replace substring or characters in a string.
+
+ADDING STRINGS
+
+1. + operator
++ operator can be used to add strings
+
+2. concat()
+This method is another way to join strings but does not modify the original string.
+
+IMMUTABLE CLASS
+Usually whatever objects we create the values inside that object can be modified but when it comes to the immutable like string is immutable means once the value store inside the string class that value of the string class cannot be modified.
+Immutable class in java means that once an object is created, we cannot change its content. In Java, all the wrapper classes (like Integer, Boolean, Byte, Short) and String class is immutable. We can create our own immutable class as well. 
+1.	The class must be declared as final so that child classes can’t be created.
+2.	Data members in the class must be declared private so that direct access is not allowed.
+3.	Data members in the class must be declared as final so that we can’t change the value of it after object creation.
+4.	A parameterized constructor should initialize all the fields performing a deep copy so that data members can’t be modified with an object reference.
+5.	Deep Copy of objects should be performed in the getter methods to return a copy rather than returning the actual object reference)
+ 
+public final class B{					// final class
+    private final int x;				// private and final variable
+    B(int x) {						// constructor
+        this.x=x;
+    }
+    public int getX() {				// getter method
+        return x;
+    }
+
+TEXT BLOCKS
+Use for new lines block instead of traditional "\n".
+String s=	"""
+		hi
+		"""
+
+STRINGBUFFER CLASS
+The StringBuffer class in Java represents a sequence of characters that can be modified, which means we can change the content of the StringBuffer without creating a new object every time. It represents a mutable sequence of characters.
+StringBuffer are mutable it means that we can change the content after the object has been created, on the other hand String are immutable once it created it can not be modified.
+Since StringBuffer objects are mutable, it is suitable in scenarios where we need to modify the string multiple times. If we do the same thing with string, every time a new object is created and the old one is deleted, which is very bad in terms of performance and memory.
+StringBuffer has an initial capacity, and it can also be adjusted later with the help of the ensureCapacity() method.
+With the help of the append() method, we can add characters, strings, or objects at the end of the StringBuffer.
+With the help of the insert() method, we can insert characters, strings, or objects at a specified position in the StringBuffer.
+With the help of the delete() method, we can remove characters from the StringBuffer.
+With the help of reverse() method, we can reverse the order of characters in the StringBuffer.
+Both String and StringBuffer objects are thread safe, but in different ways. StringBuffer is synchronized it means it is thread-safe but keep in mind that this synchronization can cause performance issues if accessed by multiple threads at the same time. On the other hand immutable objects like String are thread-safe because their state can not be modified once they are created.
+
+INITIALIZATION
+StringBuffer sb=new StringBuffer(“Initial String”);
+
+STRINGBUILDER CLASS
+n Java, the StringBuilder class is a part of the java.lang package that provides a mutable sequence of characters. Unlike String (which is immutable), StringBuilder allows in-place modifications, making it memory-efficient and faster for frequent string operations.
+StringBuilder in Java represents a mutable sequence of characters.
+String Class in Java creates an immutable sequence of characters, whereas StringBuilder creates a mutable sequence of characters, offering an alternative.
+The functionality of StringBuilder is similar to the StringBuffer class, as both provide mutable sequences of characters.
+StringBuilder does not guarantee synchronization, while StringBuffer does. It is a high-performance and low-overhead non thread non-thread-safe alternative to StringBuffer, suitable for single-threaded applications, while StringBuffer is used for synchronization in multithreaded applications.
+StringBuilder is faster than StringBuffer in most implementations.
+StringBuilder class to perform different string manipulation operations such as append(), insert(), reverse(), and delete().
+It is more efficient than String when performing multiple string manipulations (like concatenation) since it modifies the string in place.
+It avoids creating new objects on every modification, reducing memory overhead.
+Unlike String, StringBuilder allows the modification of strings without creating new instances.
+It dynamically adjusts its capacity as needed, minimizing the need for resizing.
+Great for scenarios where strings are modified repeatedly inside loops.
+It is not synchronized, making it unsuitable for use in multi-threaded environments.
+If not used properly, StringBuilder may allocate excess memory, especially if the initial capacity is set too large.
+For multi-threaded scenarios, you must handle synchronization manually, unlike StringBuffer.
+
+INITIALIZATION
+StringBuilder sb = new StringBuilder(“Initial String”);
+
+INTERNAL WORKING OF STRINGBUFFER AND STRINGBUILDER
+When we create a StringBuilder or StringBuffer, it has an initial capacity (default is 16 characters).
+StringBuilder sb = new StringBuilder();
+// default capacity = 16
+If we keep appending and exceed the current capacity, it automatically resizes. Here's how:
+newCapacity = (oldCapacity * 2) + 2;
+This means it's doubling the size + 2, which is efficient and minimizes frequent resizing.
+StringBuilder sb = new StringBuilder(); 		// capacity = 16
+sb.append("abcdefghijklmnop");          		// uses up 16
+sb.append("q");                         			// exceeds capacity → resize
+Now the new capacity becomes:
+(16 * 2) + 2 = 34
+Efficient memory allocation — doesn't resize after every character.
+Better performance — fewer array copies.
+Minimized garbage collection pressure.
+
+COMPARISON TABLE
+
+Feature 			 					String 					 			StringBuilder 									StringBuffer
+Mutability 		 	Immutable (creates new object on modification) 	 Mutable (modifies content in place) 				 Mutable (modifies content in place)
+Thread-Safe		 	Yes (because it's immutable) 					 No (not thread-safe) 						 	Yes (synchronized methods for thread safety)
+Performance 		 	Slower (new object created on each change) 		 Fastest (no synchronization, single-threaded use) 		 Slower (synchronization overhead in multi-threaded context)
+Use Case 		 	Fixed or constant strings 						 Efficient string manipulation in single-threaded apps 	 String manipulation in multi-threaded environments
+Synchronization 	 	Not needed (immutable = no race conditions) 	 Not synchronized 								 Fully synchronized (all critical methods are synchronized)
+Memory Usage 	 	Higher (due to frequent object creation) 		 Efficient (modifies in place, less GC pressure) 		 Efficient but slightly more memory used due to sync locks
+Introduced In 		 	Java 1.0 									 Java 1.5 									 	Java 1.0
+
+JAVA COLLECTION FRAMEWORK
+Java Collection framework is a set of classes and interfaces which provide a ready-made architecture to store, retrieve, and manipulate groups of objects.
+In order to implement a new feature or a class, there is no need to define a framework. 
+However, an optimal object-oriented design always includes a framework with a collection of classes such that all the classes perform the same kind of task. 
+
+WRAPPER CLASSES
+It helps to converts primitive data type to objects or to store the values in the form of objects, called as boxing.
+
+COLLECTION
+Group or collection of objects, allowing efficient storage, retrieval, and manipulation. The Collection Framework in Java provides several data structures to organize objects, such as lists, sets, and maps.
+
+BOXING
+Create an object to store the values in it.
+Boxing refers to wrapping a primitive value into an object of its corresponding wrapper class. This allows primitives to be treated as objects.
+Integer x= new Integer (10);
+However, this approach is outdated! Since Java 5, autoboxing makes boxing more convenient.
+
+AUTO-BOXING
+Integer x2=10;
+Auto-boxing is the process where Java automatically converts a primitive type into its corresponding wrapper class. This eliminates the need for manual boxing using new Integer(value).
+
+UNBOXING
+Reading the data from a wrapper class, unboxing is the process of extracting the primitive value from a wrapper class object. It is the reverse of boxing.
+
+AUTO-UNBOXING
+Auto-unboxing happens when Java automatically converts a wrapper class back into a primitive type.
+Integer obj = 200;
+int num = obj; 		// Auto-unboxing (Implicit conversion)
+
+JCF HIERACHY
+
+Iterable (🔵 Interface)
+ └── Collection (🔵 Interface)
+      └── SequencedCollection (🔵 Interface)   [Java 21+]
+           ├── List (🔵 Interface)
+           │     ├── ArrayList (🟢 Class)
+           │     ├── LinkedList (🟢 Class)
+           │     ├── Vector (🟢 Class)
+           │     └── Stack (🟢 Class)
+           │
+           ├── Set (🔵 Interface)
+           │     ├── HashSet (🟢 Class)
+           │     ├── LinkedHashSet (🟢 Class) [implements SequencedSet 🔵]
+           │     └── SortedSet (🔵 Interface)
+           │            └── NavigableSet (🔵 Interface)
+           │                  └── TreeSet (🟢 Class)
+           │
+           └── Queue (🔵 Interface)
+                 ├── PriorityQueue (🟢 Class)
+                 ├── ArrayDeque (🟢 Class)
+                 └── Deque (🔵 Interface) 
+                       └── LinkedList (🟢 Class) [also implements List 🔵]
+                 
+Map (🔵 Interface)   [not child of Collection]
+ ├── HashMap (🟢 Class)
+ ├── LinkedHashMap (🟢 Class) [implements SequencedMap 🔵]
+ ├── Hashtable (🟢 Class)
+ └── SortedMap (🔵 Interface)
+        └── NavigableMap (🔵 Interface)
+              └── TreeMap (🟢 Class)
+
+Special Concurrent Collections:
+ ├── ConcurrentHashMap (🟢 Class)
+ ├── CopyOnWriteArrayList (🟢 Class)
+ └── CopyOnWriteArraySet (🟢 Class)
+
+Utility Classes:
+ ├── Collections (🟢 Class) [for algorithms like sort, shuffle]
+ ├── Arrays (🟢 Class) [for array-based operations]
+ ├── Objects (🟢 Class)
+
+NEED FOR A SEPARATE COLLECTION FRAMEWORK 
+Before the Collection Framework(or before JDK 1.2) was introduced, the standard methods for grouping Java objects (or collections) were Arrays or Vectors, or Hashtables. All of these collections had no common interface. 
+Therefore, though the main aim of all the collections is the same, the implementation of all these collections was defined independently and had no correlation among them. And also, it is very difficult for the users to remember all the different methods, syntax, and constructors present in every collection class. 
+
+ADVANTAGE OF JAVA COLLECTION FRAMEWORK
+Consistent API: The API has a basic set of interfaces like Collection, Set, List, or Map, and all the classes (ArrayList, LinkedList, Vector, etc.) that implement these interfaces have some common set of methods.
+Reduces programming effort: Programmers don’t have to design collections; they can focus on using them effectively, fulfilling the concept of abstraction in OOP.
+Increases program speed and quality: Provides high-performance implementations of useful data structures and algorithms, boosting the program's performance without manual optimization.
+Reduces development time: Ready-made classes and interfaces (like ArrayList, HashMap) save time since developers don't need to build data structures from scratch.
+Focuses more on business logic instead of reinventing the wheel.
+Interoperability: Collections can easily interact, e.g., passing an ArrayList where a List is expected or converting a Set into a List.
+Type safety with Generics: Collections support Generics, allowing you to define element types and prevent ClassCastException at runtime (e.g., List<String> names = new ArrayList<>();).
+Efficient Algorithms: Java provides optimized algorithms like sorting, searching, and shuffling through the Collections utility class.
+
+ITERABLE INTERFACE
+This is the root interface for the entire collection framework. The collection interface extends the iterable interface. Therefore, inherently, all the interfaces and classes implement this interface. The main functionality of this interface is to provide an iterator for the collections. Therefore, this interface contains only one abstract method which is the iterator. It returns the 
+Iterator <T> iterator(); 
+
+ITERATOR METHOD
+The iterator method is the single abstract method in the iterable interface. It returns an iterable<T> that allows sequential access to elements in a collection.
+This provides methods like hasNext() (checks for next element) and next() (retrieves next element).
+Helps in safely iterating over collections, especially when modification is needed.
+
+COLLECTION INTERFACE
+This interface extends the iterable interface and is implemented by all the classes in the collection framework. This interface contains all the basic methods which every collection has like adding the data into the collection, removing the data, clearing the data, etc. 
+All these methods are implemented in this interface because these methods are implemented by all the classes irrespective of their style of implementation. And also, having these methods in this interface ensures that the names of the methods are universal for all the collections. 
+Therefore, in short, we can say that this interface builds a foundation on which the collection classes are implemented.
+
+SEQUENCEDCOLLECTION INTERFACE
+This interface in Java, introduced in Java 21, extends the collection interface and provides methods to access elements in a specific order, such as insertion order.
+It maintains order ensures elements are accessed in a sequence-preserving manner.
+It supports operations at both ends allows adding, retrieving, and removing elements from both the beginning and end of the collection.
+It is reversible provides a unique method to return a collection in reverse order.
+
+METHODS IN SEQUENCEDCOLLECTION INTERFACE
+1. reversed()		: Returns a reversed view of the collection.
+2. addFirst()		: Inserts an element at the beginning.
+3. addLast()		: Appends an element to the end.
+4. getFirst()		: Retrieves the first element.
+5. getLast()		: Retrieves the last element.
+6. removeFirst()	: Removes and returns the first element.
+7. removeLast()	: Removes and returns the last element.
+
+LIST INTERFACE
+This is a child interface of the collection interface. This interface is dedicated to the data of the list type in which we can store all the ordered collections of the objects. This also allows duplicate data to be present in it. 
+This list interface is implemented by various classes like ArrayList, Vector, Stack, etc. Since all the subclasses implement the list, we can instantiate a list object with any of these classes. 
+List <T> al = new ArrayList<> (); 			//for ArrayList
+List <T> ll = new LinkedList<> (); 			//for LinkedList
+List <T> v = new Vector<> (); 			//for Vector
+Where T is the generic type of the object .
+
+IMMUTABLE LIST
+An immutable list is a list whose values cannot be changed after the list is created, we cannot add, remove, or modify elements.
+It is fixed once created — safe from accidental changes and it is very useful for security, thread-safety, and read-only data.
+List<String> list = List.of("A", "B", "C");
+List.of() method creates an immutable list, any attempt to modify it (like add, remove, or set) will throw UnsupportedOperationException.
+
+GENERICS
+It allows us to define classes, interfaces and methods with a placeholder for data types for type safety using <> angle brackets.
+The real data type is specified when you create an object.
+It improves type safety and removes the need for type casting. It catches type errors at compile time.
+Code reusability makes same class or method can work with different data types.
+
+// Defining a generic class
+class Box<T,U> {
+	public T name;
+	public U id;
+	public void set(T value, U id) {
+        this.value = value;
+	this.id=id;
+    }
+	public T getValue() {
+        return value;
+    }
+	public T getId() {
+        return id;
+}
+T is a type parameter. We can name it anything (like E, K, V, etc.), but T (Type) is common.
+At runtime, it works with the real type you specify (Integer, String, etc.).
+Same class works for any data type — no code duplication!
+
+
+ARRAYLIST (DYNAMIC ARRAY)
+An ArrayList(class) provides a way to use dynamic arrays in Java. Unlike regular arrays whose size is fixed, an ArrayList can grow automatically as elements are added and shrink when elements are removed.
+Although it may be slower than standard arrays (due to extra overhead like resizing), it is very useful when frequent manipulation (like adding, removing, or updating elements) is needed.
+The underlying data structure of an ArrayList in Java is simply a resizable array — a normal Object[] array, when we create an ArrayList, it internally manages an Object array to store elements.
+Since it uses Object[], it cannot store primitive types like int, double, etc, that's why we use wrapper classes like Integer, Double, etc., with generics (ArrayList<Integer>).
+After Java 5, with Autoboxing, int is automatically converted into Integer when adding into an ArrayList<Integer>.
+ArrayList maintains the insertion order, elements are retrieved in the same order they were added.
+ArrayList allows duplicate elements, we can add the same element multiple times and it also allows multiple null values.
+ArrayList is not synchronized (not thread-safe), it can be made synchronized manually using Collections.synchronizedList().
+
+INTERNAL WORKING OF ARRAYLIST
+When we create an ArrayList, internally it uses a regular array to store the elements, initially, this array has some default capacity (usually 10).
+Now, when we keep adding elements and the array gets full, the ArrayList creates a new, bigger array behind the scenes, and copies all the old elements into it and the old array is garbage collected (automatically removed).
+In Java (specifically in OpenJDK), when an ArrayList needs more space, it increases its capacity by about 50% and the new capacity is calculated roughly like:
+newCapacity = oldCapacity + (oldCapacity / 2).
+If the current capacity is 10 → next capacity will be 10 + 5 = 15 and if capacity is 15 → next will be 15 + 7 = 22 (because 15/2 = 7.5 → rounded down to 7).
+This resizing is a bit costly, so if you know your required size beforehand, it's good to initialize the ArrayList with an expected capacity to improve performance.
+Even though resizing is costly (O(n) because it copies everything), it happens rarely — only when capacity is exceeded.
+So, on average, the cost per add() operation is still very low across all operations. This idea is called amortized analysis.
+
+PERFORMANCE OF ARRAYLIST
+Operation	Time 				Methods						Complexity				Notes
+Access 						get(index)					O(1)						Very fast, because it uses indexing like a normal array.
+Insert at end 					add(element)					O(1) (amortized)			Usually O(1), but if resizing is needed, it takes extra time temporarily.
+Insert at specific index			add(index, element)				O(n)						Need to shift elements to the right to make space.
+Delete at specific index			remove(index)					O(n)						Need to shift elements to the left after removing.
+Search 						contains(), indexOf()			O(n)						Linear search, because no sorting is guaranteed.
+
+✅ When to use ArrayList:											❌ Avoid ArrayList when:
+You need fast random access (get by index).								You do a lot of insertions/removals in the middle.
+You mostly add/remove at the end.										In that case, LinkedList might be better.
+You don't do frequent inserts/deletes in the middle.
+
+INITIALIZATION
+List<Integer> al = new ArrayList<>();
+ArrayList<Integer> al = new ArrayList<>();
+
+LINKEDLIST
+The LinkedList class in Java is based on the real Linked List linear data structure, where elements (nodes) are individually linked to each other. Unlike arrays, elements are not sitting next to each other in memory so elements are not stored in contiguous memory locations like arrays. The elements (nodes) are connected using pointers (references) to form a chain.
+Each node has two parts:
+	1.	One part holds the data (your value).
+	2.	The other part holds the reference (address) to the next node in the chain.
+Because of this setup:
+Inserting or deleting in the middle of a LinkedList is fast (just need to adjust pointers, no shifting like in ArrayList) but accessing an element by index is slow — you have to traverse node by node (O(n) time).
+LinkedList allows dynamic memory allocation (size can grow or shrink at runtime).
+LinkedList allows duplicate elements and it maintains the insertion order as well as it can store multiple null elements.
+It is also not synchronized like arrayList (not thread-safe by default) so if you're using it across multiple threads, you need to handle locking yourself.
+Implements important interfaces like List, Deque, and Queue — meaning it can behave like a list or a double-ended queue.
+
+TYPES OF LINKEDLIST
+
+1. SINGLY LINKEDLIST
+Each node contains:
+	Data (value)
+	Next pointer (reference to the next node)
+The connection is only in one direction: from the current node to the next node. This means you can move forward through the list but you cannot go backward.
+Since each node stores only one reference (to the next node), it uses less memory. However, if you need to go backward or delete a node easily without going from the beginning, it becomes a bit tricky.
+A singly linked list is better when memory is a concern and you mostly need to move in only one direction. For example, if you are building something like a simple queue where you only insert at one end and remove from the other, singly linked list works well. It saves memory because each node holds just one pointer, not two.
+
+2. DOUBLY LINKED LIST
+Each node contains:
+	Data (value)
+	Next pointer (reference to next node)
+	Prev pointer (reference to previous node)
+Because of the two references, you can move both forward and backward through the list. This makes insertion and deletion easier, especially when working with nodes in the middle of the list makes easier to delete or insert nodes from both ends or middle.
+But because each node stores two references instead of one, it uses slightly more memory compared to a singly linked list.
+But if you need to move forward and backward frequently, or you need easier insertion and deletion from both ends or even in the middle of the list, a doubly linked list is a better choice. Since each node keeps track of both its next and previous nodes, you can go back and forth easily without starting from the head every time. Although it uses slightly more memory because of the extra pointer, the flexibility it provides is often worth it.
+
+QUICK COMPARISON TABLE
+Feature						Singly Linked List			Doubly Linked List
+Pointers in Node				1 (next)					2 (next and prev)
+Direction						One-way					Two-way
+Memory Usage				Less						More
+Traversal						Only forward				Forward and backward
+Deletion/Insertion				Bit harder				Easier
+
+CIRCULAR LINKED LIST
+A circular linked list is one in which the last node contains the pointer to the first node of the list. While traversing a circular linked list, one can begin at any node and traverse the list in any direction forward and backward until reaching the same node where it started. Thus, a circular linked list has no beginning and no end.
+
+INTERNAL WORKING OF LINKEDLIST
+In Java, LinkedList is built using underlying data structure doubly linked list internally.
+Each element in the LinkedList is stored inside an object called a Node.
+This Node has three parts:
+	The actual data (like 5, or "Apple", or any object)
+	A reference to the next node (next element in the list)
+	A reference to the previous node (previous element in the list)
+The LinkedList itself keeps track of:
+	The first node (called head or first)
+	The last node (called tail or last)
+	The size (how many nodes are currently there)
+When we add an element a new Node is created with the given data.
+If the list is empty, this new Node becomes the first and last.
+If the list is not empty, the new Node is linked at the end (or beginning or middle depending on where you insert), hence pointers (next and prev) are updated accordingly.
+When we remove an element the references (pointers) of neighboring nodes are adjusted to skip over the node being deleted and when the node is removed and garbage collected automatically.
+Movement happens by following the next and previous references, not by indexing like arrays, that’s why LinkedList is efficient for adding and removing elements but slow for random access (because it has to walk node by node).
+
+NULL ← [prev | data | next] ↔ [prev | data | next] ↔ [prev | data | next] → NULL
+
+PERFORMANCE OF LINKEDLIST
+Operation	Time 				Methods							Complexity				Notes
+Access 						get(index)						O(n)						Have to traverse node by node; no direct indexing.
+Insert at end/beginning			add(element)						O(1)						Fast because LinkedList maintains a tail reference.
+Insert at specific index			add(index, element)					O(n)						Need to reach that index first, then insert.
+Delete at specific index			remove(index)						O(n)						Need to reach that node first, then remove.
+Search 						contains(), indexOf()				O(n)						Linear search by traversing the nodes.
+
+✅ When to use LinkedList:																❌ Avoid LinkedList when:
+You have a lot of insertions and deletions, especially in the middle of the list.						You need fast random access by index (because LinkedList has O(n) access time).
+You don't need fast random access (you are okay with sequential access).							You mostly perform read-heavy operations (just accessing elements without modifying).
+You are implementing queue, deque, or stack-like structures where frequent add/remove 				You care a lot about memory (because each node has two extra pointers).
+happens at both ends.
+Memory overhead of extra pointers (next and prev) is acceptable for your use case.
+
+INITIALIZATION
+List<Integer> ll = new LinkedList<>();
+LinkedList<Integer> ll = new LinkedList<>();
+var l = new LinkedList<String>();
+
+THREAD
+
+
+VECTOR
+The Vector class implements a growable array of objects. Vectors fall in legacy classes, but now it is fully compatible with collections. It is found in java.util package and implement the List interface.
+It is thread-safe means its all methods are synchronized, making it suitable for multi-threaded environments. However, this can lead to performance overhead in single-threaded scenarios.
+It allows nulls means can store null elements.
+It has also enumeration support provides backward compatibility with Enumeration, a legacy way of iterating over elements and also supports modern Iterator and ListIterator for traversing elements.
+They are very similar to ArrayList, but Vector is synchronized and has some legacy methods that the collection framework does not contain.
+It also maintains an insertion order like an ArrayList. Still, it is rarely used in a non-thread environment as it is synchronized, and due to this, it gives a poor performance in adding, searching, deleting, and updating its elements. Meaning, only one thread can access a method at a time.
+The Iterators returned by the Vector class are fail-fast. In the case of concurrent modification, it fails and throws the ConcurrentModificationException.
+
+INTERNAL WORKING OF VECTOR
+It uses underlying data structure dynamic array internally to store the elements — just like ArrayList.
+When we create a Vector, it starts with an initial capacity (default is 10 if you don’t specify).
+When we add an element (addElement() or add()), it is inserted into the internal array, and if the internal array becomes full, Vector automatically increases its size.
+But how? It doubles the size of the current array! (Unlike ArrayList which grows by 50%.)
+Suppose capacity = 10 and we insert 10 elements — no problem, but when insert 11th element — boom! It resizes:
+New capacity = 10 × 2 = 20.
+
+PERFORMANCE OF VECTOR
+Operation						Methods								Time Complexity				Notes
+Access						get(index)							O(1)							Direct access through index; very fast.
+Insert at end					add(element)							O(1) (amortized)				Fast unless resizing happens (then resizing temporarily takes O(n)).
+Insert at specific index			insertElementAt(index, element)			O(n)							Need to shift elements to the right.
+Delete at specific index			remove(index) or removeElementAt(index)	O(n)							Need to shift elements to the left after removal.
+Search						contains(), indexOf()					O(n)							Linear search through elements.
+
+✅ When to use Vector:												❌ Avoid Vector when:
+You need a thread-safe dynamic array.									You work in a single-threaded environment (prefer ArrayList for better performance).
+Multiple threads might access and modify it concurrently.					You don't need synchronization overhead (Vector is synchronized, so it's slower for single-threaded apps).
+				
+INITIALIZATION
+Vector<Integer> v = new Vector<Integer>(n);
+
+STACK
+
+
+QUEUE INTERFACE
+
+
+PRIORITYQUEUE
+DEQUE
+
+
+MAP INTERFACE
+In Java, Map Interface is present in the java.util package represents a mapping between a key and a value. Java Map interface is not a subtype of the Collection interface. Therefore it behaves a bit differently from the rest of the collection types.
+
+HASHMAP
+A HashMap is a data structure that is used to store and retrieve values based on keys, A HashMap in Java stores key-value pairs in an array-like structure called buckets.
+HashMaps are not ordered, which means that the order in which elements are added to the map is not preserved. However, LinkedHashMap is a variation of HashMap that preserves the insertion order.
+HashMaps are not thread-safe, which means that if multiple threads access the same hashmap simultaneously, it can lead to data inconsistencies. If thread safety is required, ConcurrentHashMap can be used.
+
+INTERNAL WORKING OF HASHMAP
+
+1. RESIZE MECHANISM 
+When a new entry is added, HashMap first calculates the hash code of the key using the key's hashCode() method. This hash code is then processed to determine the appropriate bucket where the entry will be stored. Internally, HashMap uses an optimized approach — a bitwise AND operation — to compute the bucket index efficiently.
+Capacity and Load Factor:
+HashMap maintains two important properties:
+	By default, The initial capacity of a HashMap is 16 (indexes 0 to 15).
+	Load Factor: A measure that controls when to increase the table size to maintain performance, by default it is 0.75.
+	Capacity: The number of buckets in the hash table. It is calculated as size*load factor, (16*0.75)=13.
+The default load factor is 0.75, meaning when 75% of the buckets are filled (i.e., about 12–13entries for capacity 16), the HashMap will resize.
+When the number of entries exceeds the threshold (capacity × load factor), the HashMap doubles its capacity (from 16 to 32, then 64, and so on).
+All existing entries are rehashed into the new array because the bucket positions depend on the array size. Simply copying the entries is not enough; the keys need to be redistributed based on the new size.
+This resize and rehashing mechanism ensures that insertion, search, and deletion operations remain close to O(1) complexity, even as the number of elements grows.
+
+2. INDEXING MECHANISM
+In the older versions of Java (up to Java 7), HashMap used the modulus (%) operator to determine the bucket index. The formula was:
+index = Math.abs(key.hashCode() % bucketSize). This process involved two steps:
+First, the key was converted into a hash code using the hashCode() method.
+Since the hash code could be negative, Math.abs() was used to ensure a positive value before applying the modulus operation with the bucket size to find the index.
+Although this approach worked, it had some performance drawbacks, especially under heavy usage, because the modulus operation is relatively expensive compared to bitwise operations.
+Optimization After Java 8:
+Starting with Java 8, HashMap replaced the modulus operation with a much faster bitwise AND (&) operation to compute the bucket index. The updated formula is:
+index = (bucketSize - 1) & hashCode) .This mechanism works as follows:
+It first subtracts 1 from the bucket size to get a number where all lower bits are set to 1 (for powers of 2 bucket sizes).
+Then, it performs a bitwise AND between the binary representation of (bucketSize - 1) and the hash code.
+This efficiently ensures that the index falls within the valid bucket range without expensive division calculations.
+By switching to the bitwise AND method, HashMap's performance improved significantly, especially when handling large numbers of entries.Hashing collison :
+
+DRAWBACKS OF % OPERATOR
+Slow: Division (%) is O(n) which slower than bitwise operations, & is O(1)
+Extra Overhead: Math.abs() adds unnecessary computation.
+Risk of Integer Overflow: If hashCode() returns Integer.MIN_VALUE, applying Math.abs() can still result in a negative value.
+
+3. COLLISON MECHANISM
+When more than one keys stored in same index, it occurs collision.
+To prevent it uses other data structure like linked list for basic and tress for more optimized storage.
+When a single key, value is stored it simply stored in the bucket because there is no collision yet but when two keys are stored at a same index it occurs collision and at that point the bucket convert into a linked list and when the size/node of linked list exceed 8 due to multiples collisions and the size of the hashmap simultaneously exceeds 64 then it also converted into a Self-Balancing Binary Search Tree which is a Red Black Tree.
+
+PERFORMANCE OF HASHMAP
+Operation					Time Complexity	Methods				Notes
+Insert (put key-value)		O(1) (average)		put(key, value)			Fast insertion unless hash collisions occur, then it can degrade.
+Access/Retrieve (by key)	O(1) (average)		get(key)				Direct access using hashcode, but depends on distribution.
+Delete (by key)			O(1) (average)		remove(key)			Fast removal if the hash is well-distributed; otherwise slower if collisions exist.
+Search (contains key)		O(1) (average)		containsKey(key)		Searches key quickly using hashing.
+Search (contains value)		O(n)				containsValue(value)	Values are searched linearly across buckets.
+
+
+INITIALIZATION
+
+TREEMAP
+LINKEDHASHMAP
+
+
+SET INTERFACE
+It extends Collection interface.
+It Represents an unordered collection of unique elements (no duplicates) and implements the concept of a mathematical set.
+It Generally does not guarantee any order of elements.
+
+HASHSET
+HashSet in Java implements the Set interface of Collections Framework. It is used to store the unique elements and it doesn’t maintain any specific order of elements.
+It Can store the Null values.
+Uses HashMap (implementation of hash table data structure) internally and also implements Serializable and Cloneable interfaces.
+HashSet is not thread-safe. So to make it thread-safe, synchronization is needed externally.
+
+INTERNAL WORKING OF HASHSET
+All the classes of the Set interface are internally backed up by Map. HashSet uses HashMap for storing its object internally. You must be wondering that to enter a value in HashMap we need a key-value pair, but in HashSet, we are passing only one value. 
+Storage in HashMap: Actually the value we insert in HashSet acts as a key to the map Object and for its value, java uses a static final constant variable called as PRESENT so in the key-value pair, all the values will be the same.
+As we know that a set is a well-defined collection of distinct objects. Each member of a set is called an element of the set. So in other words, we can say that a set will never contain duplicate elements.
+whenever we create a HashSet, it internally creates a HashMap and if we insert an element into this HashSet using add() method, it actually call put() method on internally created HashMap object with element you have specified as it’s key and constant Object called “PRESENT” as it’s value.
+So we can say that a Set achieves uniqueness internally through HashMap. Now the whole story comes around how a HashMap and put() method internally works.
+As we know in a HashMap each key is unique and when we call put(Key, Value) method, it returns the previous value associated with key, or null if there was no mapping for key. So in add() method we check the return value of map.put(key, value) method with null value.
+If map.put(key, value) returns null, then the statement “map.put(e, PRESENT) == null” will return true and element is added to the HashSet(internally HashMap).
+If map.put(key, value) returns old value of the key, then the statement “map.put(e, PRESENT) == null” will return false and element is not added to the HashSet(internally HashMap).
+A HashSet achieves uniqueness by using a HashMap where elements are stored as keys, and because keys in a HashMap are unique, duplicate elements are automatically prevented.
+
+PERFORMANCE OF HASHSET 
+Operation	s				Methods						Time Complexity			Notes
+Add element				add(element)					O(1) (average case)			HashSet uses hash table; insertion is fast unless there are too many collisions.
+Remove element			remove(element)				O(1) (average case)			Deletion is fast because it finds the element using the hash function.
+Search for an element		contains(element)				O(1) (average case)			Direct lookup using hash codes.
+Iteration over elements		using for-each loop or iterator()	O(n)						You have to visit each element once during traversal.
+
+✅ When to use HashSet:											❌ Avoid HashSet when:
+You want fast insertion, deletion, and search.								You need to maintain insertion order → Use LinkedHashSet.
+You don't care about the order of elements.								You need sorted order → Use TreeSet.
+You don't want duplicates in your collection.								Hash functions are poor → It can degrade performance badly (rare but important in custom objects).
+You are working with large datasets where performance is important.
+
+INITIALIZATION
+Set<String> set=new HashSet<>();
+
+TREESET
+TreeSet is one of the most important implementations of the SortedSet interface. It stores elements in a Red-Black Tree structure, ensuring that they are always sorted.
+Key Features:
+Sorted Storage: Maintains elements in natural order (e.g., numbers ascending, strings alphabetical) unless a custom Comparator is provided.
+No Duplicates: Like all sets, it does not allow duplicate elements. Adding a duplicate silently fails.
+No null Allowed: Adding a null value throws a NullPointerException.
+Implements NavigableSet: Provides additional navigation methods: higher(E e), lower(E e), ceiling(E e), floor(E e)
+Not Thread-Safe: For thread-safe usage, wrap it with Collections.synchronizedSet().
+
+PERFORMANCE OF TREESET
+The performance of TreeSet in Java depends on its internal implementation, which is based on a Red-Black Tree (a self-balancing binary search tree)
+Operation 		| Time Complexity 	|			 Reason
+add(E e) 			| O(log n) 		| Inserts and rebalances the Red-Black Tree
+remove(Object o) 	| O(log n) 		| Deletes and rebalances
+contains(Object o) 	| O(log n) 		| Binary search in the tree
+first(), last() 		| O(log n) 		| Follows tree edges to extreme ends
+higher(), lower() 	| O(log n) 		| Tree navigation
+iterator() 			| O(n) 			| Traverses all elements in order
+Why O(log n)?
+Because TreeSet uses a Red-Black Tree, which maintains a balanced structure, ensuring that the height of the tree stays in the order of log(n), giving logarithmic performance for insertions, deletions, and lookups.
+Why not O(1)?
+Unlike HashSet, which uses a hash table and offers O(1) average time for add, remove, and contains, TreeSet must maintain order, which takes extra work — hence O(log n).
+
+Use TreeSet when:														Do NOT use TreeSet when:
+You need elements sorted in natural or custom order.							You don’t care about element order → use HashSet
+You want to automatically eliminate duplicates.								You need to preserve insertion order → use LinkedHashSet
+You require range-based operations like:									You need to store null elements → use HashSet (allows one null).
+subSet(), headSet(), tailSet(), ceiling(), floor(), higher(), lower()					You require maximum performance for large datasets → HashSet is faster (O(1)).
+You can afford O(log n) time complexity.									Your elements don’t implement Comparable and no Comparator is provided
+You don’t need to store null elements.
+You need to maintain a navigable sorted structure.
+
+LINKEDHASHSET
+Combines:
+HashSet → for uniqueness and fast lookup
+LinkedList → for insertion order
+Maintains insertion order
+Stores unique elements only
+Allows null (only one null element)
+Faster iteration than HashSet (due to predictable order)
+Not thread-safe
+Underlying Structure: Hash table + Doubly-linked list→ Each element maintains a link to the next and previous inserted element.
+
+PERFORMANCE OF LINKEDHASHSET
+Operation 	| Time Complexity 	| Notes
+add() 		| O(1) 			| Constant time due to hash table; maintains insertion order
+remove() 		| O(1) 			| Fast removal using hash table and linked list pointers
+contains() 	| O(1)			| Very fast lookups
+iteration 		| O(n) 			| Ordered, predictable iteration (faster than HashSet for this)
+
+When to Use LinkedHashSet:											Avoid LinkedHashSet if:
+You want fast access like HashSet										You don’t care about insertion order → use HashSet
+You need to preserve insertion order									You want sorted elements → use TreeSet
+You want to avoid duplicates											You need thread safety → use Collections.synchronizedSet(...) or ConcurrentSkipListSet
+You’re okay with slightly more memory overhead than HashSet
+
+COMPARISON SUMMARY
+Feature 				| HASHSET 		| LINKEDHASHSET 	| TREESET
+Ordering 				| No order 		| Insertion order 		| Sorted order
+Duplicates 			| Not allowed 		| Not allowed 			| Not allowed
+Null allowed? 			| Yes (1 null) 		| Yes (1 null) 			| ❌ No (throws NullPointerException)
+Add/Remove/Search 	| O(1) 			| O(1) 				| O(log n)
+Iteration speed 		| Unpredictable 	| Predictable 			| Predictable
+Thread-safe? 			| ❌ 			| ❌ 				| ❌
+
+
+EXCEPTION
+When a bad user input is given, we get exceptions in our program. Generally they are unexpected situations.
+Exceptions in programming occur when the program encounters an unexpected situation, often due to incorrect user input, resource limitations, or logical errors. Instead of crashing the program outright, exceptions allow developers to handle these errors gracefully using mechanisms like try-catch block.
+If exceptions occurs and if not handled it then the program execution will stop.
+The most common occurring exceptions are IOException, ArithmaticException, NullPointerException, IndexOutOfBoundException.
+
+ERROR
+Errors are usually system-level failures that applications don’t handle, it typically indicate serious problems that a program may not be able to recover from. They often occur due to system limitations or fundamental issues. Examples include:
+Syntax Errors: Mistakes in code structure (e.g., missing parentheses).
+Runtime Errors: Problems like out-of-memory errors.
+Logical Errors: Incorrect program logic leading to unintended behavior.
+Although Exceptions and Errors both refer to issues that disrupt the normal flow of execution. 
+
+EXCEPTION HANDLING WITH TRY-CATCH BLOCK
+
+To handle exceptions in java, we use the inbuilt try-catch block.
+The try-catch block is a fundamental mechanism in Java that allows programs to handle exceptions gracefully without crashing. It helps detect runtime errors and recover from them efficiently.
+try{
+} catch(ExceptionType e){
+}
+If any exception occurs in try block then the Java Runtime Environment (JRE) automatically detect it and an error message explaining what went wrong and a stack trace showing where the error happened.
+Now the Java will create exception object and that exception object, along with its details (type, message, stack trace),  it'll give it to catch block and the catch block will handle where it handle mean logging the error, notifying the user, or recovering gracefully the exception and then the further code will continue to run.
+
+EXCEPTION CLASS HIERARCHY 
+										   Object
+										Throwable
+										Exception																	Error
+Compile-Time Exception												Run-Time Exception
+1.	IOException														1.	ArithmaticException							1.	OutOfMemoryError
+	1.1	FileNotFoundException											2.	NullPointerException							2.	StackOverflowError
+	1.2	FileSystemException											3.	IndexOutOfBoundException						3.	VirtualMachineError
+	1.3	AccessDeniedException												3.1	ArrayIndexOutOfBoundException				4. 	Assertion Error
+2.	SQLException														4.	IllegalArgumentException
+	2.1	SQLSyntaxErrorException											4.1	NumberFormatException
+	2.2	SQLNonTransientError											5.	ClassCastException
+3.	ReflectiveOperationExeption
+4.	ClassNotFoundException
+
+TYPES OF EXCEPTIONS
+  
+1. RUN-TIME EXCEPTION (UNCHECKED EXCEPTION)
+This exception will occur during the run time process of the program.
+Runtime exceptions, occur during program execution and are not checked at compile time. These exceptions typically result from programming errors, such as invalid operations or accessing unavailable data.
+Even though unchecked exceptions do not require mandatory handling, it's a good practice to handle them properly to prevent unexpected program crashes.
+
+1.1	ArithmaticException
+When invalid mathematical operations are performed, we get ArithmaticException.
+For Ex:- Division by zero, Modulo operation with zero, Arithmetic overflow (in some cases).
+
+1.2.	NullPointerException
+When with null reference variable we access non-static members of the class, we get NullPointerException.
+Since null means "no object," trying to access methods or fields leads to an error.
+For Ex:- Calling a method on a null object reference, accessing a field of a null object, Returning null from a method and accessing its members, 
+
+1.3	IndexOutOfBoundException
+It occurs when trying to access an index beyond the valid range of an array or list.	
+To prevent this we should use conditional checks i.e. if (index<array.length) and to use loops carefully to avoid exceeding array/list boundaries.
+ArrayIndexOutOfBoundException	:-	When accessing an invalid index in an array.
+StringIndexOutOfBoundException	:-	When using incorrect indices with strings.
+ListIndexOutOfBoundException	:-	When working with lists in collections.
+
+1.4	NumberFormatException
+Converting strings into required data types with the help of wrapper classes consisting many sub-classes like Integer, Float, Long, Double etc.
+It occurs when to convert a string into a numeric data type, but the string does not have a valid format for the conversion.
+For Ex:- Trying to convert a non-numeric string to a number, Converting an empty string, Parsing a string with spaces or special characters.
+Use try-catch blocks and input validation to prevent issues and prevent the program from crashing
+
+2. COMPILE-TIME EXCEPTION (CHECKED EXCEPTION)
+This exception will occurs during the compilation process of the program.
+Java forces the programmer to handle it using  try-block so these exceptions are must be handled by the programmer before the code can successfully compile. If a checked exception is not properly handled using try-block the compiler will produce an error.
+Some common checked exceptions are IOException, SQLException, ClassNotFoundException.
+
+CUSTOM EXCEPTIONS/USER DEFINED EXCEPTIONS WITH THROW KEYWORD
+To create custom exceptions, throw keyword is used.
+It allow developers to create their own exception classes tailored to specific scenarios. This helps in handling errors more meaningfully.
+Throw keyword takes the object address and send it to the catch block for handling.
+Execution enters the try block, where a potentially risky operation is performed.
+An explicit exception is thrown using the throw  keyword inside the try  block.
+Java immediately creates an exception object and searches for a matching catch  block.
+Control is transferred to the appropriate catch block, where the exception is handled.
+After handling the exception, program execution continues after the catch block unless rethrowing occurs.
+
+THROWS KEYWORD
+Throws keyword will send exception to methods/constructors calling statements since it does not handle exceptions but instead passes them to the calling method, which must handle them using a  try-catch block.
+
+FINAL KEYWORD
+If we make a variable final then we cannot change its value. Its becomes constants/immutable.
+If we make static/non-static variable final then initialization is mandatory, if we do not initialize, it gives an error refers to Blank Field Error.
+If we make a method final then overriding is not allowed.
+If we make a class final then inheritance is not allowed.
+
+BLANK FILED ERROR
+The Blank Field Error in Java occurs when a final variable is declared but not initialized before it is used. Since final variables cannot be changed once assigned, Java requires them to be explicitly initialized at the time of declaration or inside the constructor (if it's an instance variable).
+To overcome this error initialize the final variable immediately at declaration or initialize inside the constructor for instance variables.
+
+FINALLY KEYWORD
+It is an extension of try-catch block and it will run no matter what—whether an exception occurs or not, it always executes.
+We can use finally without a catch block, but if an exception occurs, it won’t be handled—it just runs finally and then propagates the exception further.
+It is mainly used to clean up resources, such as closing files, database connections, or other system resources.
+
+FINALIZE () METHOD
+The finalize() method is a part of the Object class in Java and It allows you to perform cleanup operations before the Garbage Collector destroys an object.
+It is automatically invoked by the JVM when the object becomes eligible for garbage collection.
+When there are no more references to an object (e.g., you set it to null), the Garbage Collector marks it for removal and before destroying the object, the JVM adds it to the finalization queue 
+after that the Garbage Collector calls the object's finalize() method and once the finalize() method finishes, the object is removed from memory.
+It is unpredictable because finalize() method may not always run immediately or even at all,  this is because Garbage Collection is not guaranteed to run when you request it.
+This method was officially deprecated in Java 9 and completely removed in Java 18, as we cannot control when the Garbage Collector runs. It adds an extra step (finalization queue) before memory is freed. Java introduced better resource management techniques, such as try-with-resources.
+
+TRY-WITH-RESOURCES WITH FILEWRITER
+Try-with-resources (try with AutoCloseable) is a mechanism introduced in Java 7 that automatically closes resources once execution leaves the try block—whether normally or due to an exception.
+Automatic Cleanup: No need to explicitly close resources.
+Safer & Reliable: Ensures cleanup even when exceptions occur.
+Better Performance: No dependency on garbage collection.
+Works in all Java versions.
+
+FILE HANDLING
+
+FILE CLASS
+The File class in Java is part of the java.io package and is used for handling file operations such as creating, deleting, checking existence, and retrieving file properties. It does not handle reading or writing file content directly, but it provides methods to manage files and directories.
+Used to represent file or directory paths.
+Helps in checking file existence and properties.
+Supports file creation and deletion.
+Works with both absolute and relative paths.
+
+METHODS IN FILE CLASS
+
+1. exists()
+It is a non-static method present inside the file class used to check whether a file or directory exists in the specified path or not or it can be used before performing file operations like reading or deleting.
+It returns Boolean value, if the file exists/present in the given path it returns true else false.
+Since it's a non-static method, you need to call it on file object.
+
+2. delete()
+It will delete the file/directories in the given path and returns Boolean value true if the file was successfully deleted otherwise returns false if not deleted, it does not delete non-empty directories.
+It works only if the file exists and it cannot recover a deleted file so ensure careful use.
+
+3. mkdir()
+It will create folder/directory in the given path and returns true.
+If the folder with same name already exists then it does not overwrite with a  new folder with same name hence returns false
+It creates only one directory (not parent directories), to create multiple nested directories, use mkdirs()  instead.
+
+4. createNewFile()
+It will create new file in the given path and it will run true after creating new file and returns false if the file is already exist and not overwrite the existed file.
+It can throw an IOException if an error occurs while creating the file hence make sure your program has write permissions in the specified directory.
+
+5. length()
+It returns a Long value of size of the file in bytes , including white spaces, special characters and newlines in the given file and if the file does not exist, it returns 0.
+Since it returns the file size in bytes not the number of characters, you might need to convert bytes to characters manually depending on the encoding (e.g., UTF-8, ASCII), if your file is saved using ASCII encoding, then each character takes 1 byte.
+
+6. list()
+It will returns an array of strings and gives the names of files and directories present on the given directory path. 
+It only works for directories—if called on a file, it returns null.
+Doesn't provide full paths, only names, if you need full paths or additional metadata, use listFiles() instead, which returns an array of file objects.
+Can return null  if the directory does not exist or is inaccessible due to permissions.
+
+7. FileReader
+It is used to read the file data.
+It reads only one character at a time as an integer data type, to read multiple characters or entire content of the file we can run a loop till the length of the file.
+
+8. FileWriter
+It is used to write data in the file and if the file doesn't exists it creates a new file itself and if the file exist with empty or data in the path it overwrite the file and creates new one where all the data of old file will be lost so be careful.
+If we want to not overwrite the old file we have to change its second argument value by false(its default) to true where it will append the new data into the old file with the old data.
+
+9. BufferedReader
+It has a readline() method which can read the entire line data at once and gives better performance.
+It wraps around other readers, like FileReader or InputStreamReader, to provide buffering, which improves performance by reducing the number of disk or network access operations.
+
+10. BufferedWriter
+It is used for efficiently writing text data to an output stream. It provides buffering to reduce the number of write operations, making file writing faster.
+It has a newLine() method particularly useful for inserting a line break when writing multiple lines of data.
+It provides buffering to reduce the number of write operations, making file writing faster.
+
+SERIALIZATION  
+Serialization is the process of converting an object into a byte stream so it can be saved to a file, sent over a network, or stored in a database. This allows objects to be reconstructed later.
+Java provides the Serializable interface, which is a marker interface (meaning it has no methods). Any class that implements Serializable can be serialized.
+Use ObjectOutputStream to serialize objects into a file.
+
+DESERIALIZATION
+Deserialization is the reverse process—taking the byte stream and converting it back into an object.
+Use ObjectInputStream to read and deserialize objects.
+Serialization and Deserialization are fundamental concepts in Java, especially useful when working with object persistence, data transmission, and caching.
+
+MEMORY MANAGEMENT IN JAVA
+Java memory management is a fundamental concept that centers around the automatic allocation and deallocation of memory, handled by the Java Virtual Machine (JVM). 
+Unlike languages such as C or C++, Java abstracts away the complexity of manual memory handling by utilizing a garbage collector (GC)—a background process that automatically removes unused or unreachable objects to free up memory.
+This built-in mechanism allows developers to focus on building applications without worrying about memory leaks or manual cleanup. However, understanding how Java manages memory is crucial for writing efficient, high-performing applications, especially when it comes to debugging memory issues or optimizing resource usage.
+While Java simplifies memory handling with its garbage collector, not all memory issues are automatically resolved. 
+For instance:
+	Objects with lingering references won't be garbage-collected.
+	Inefficient memory use can lead to OutOfMemoryErrors.
+	Performance issues may arise due to frequent GC pauses.	
+
+JVM MEMORY STRUCTURE
+Java Virtual Machine (JVM) defines several runtime data areas used during the execution of a Java program. Some memory areas are created and managed by the JVM itself, while others are created per thread and exist only for the lifetime of that thread.
+
+Memory Areas Created by the JVM
+These areas are created when the JVM starts and are shared across all threads. They are destroyed only when the JVM shuts down.
+1. HEAP AREA(Objects)
+The Heap is a shared runtime data area used to store Objects (like object created using new and the object is allocated in the heap and its reference is stored in the stack.) and Arrays
+It is created at JVM startup and exists until the JVM process terminates.
+Heap memory can be fixed or dynamic, and its size is configurable via JVM options like -Xms and -Xmx.
+When we write: Scanner sc = new Scanner(System.in);
+The actual Scanner object is created in the heap and the reference sc is stored in the stack (specifically, in the thread’s JVM stack).
+Garbage Collection (GC) in the heap is: Automatic and Mandatory.
+It reclaims memory from objects that are no longer referenced.
+
+Properties of Heap:
+Single Heap per JVM process.
+Shared across all threads.
+Critical for managing dynamic memory in Java.
+
+
+2. METHOD AREA/METASPACE (Class-level Data)
+The Method Area is a logical part of the JVM memory used to store class-level data, including:
+Class structure (metadata)
+Method bytecode
+Static variables
+Runtime constant pool
+Field and method information
+Interfaces
+It is created when the JVM starts and can be either fixed or dynamically sized, based on the system's and JVM's configuration (e.g., -XX:MaxMetaspaceSize in modern JVMs).
+In Java 8 and later, the Method Area was moved from the heap to a separate region called Metaspace (stored in native memory).
+Prior to Java 8, the method area was part of a space called PermGen (which had memory limits and could cause OutOfMemoryError).
+While the heap is always garbage collected, the Method Area (or Metaspace) may or may not be garbage collected, depending on the JVM implementation.
+Class unloading (i.e., garbage collecting metadata) happens only when the class loader is no longer referenced.
+
+
+3. JVM STACK
+A JVM Stack is created per thread when the thread is created. Each thread in a Java program has its own stack, ensuring that data associated with different threads doesn't interfere with each other. This design ensures thread safety.
+The JVM stack stores the following data for method execution:
+Local variables: Variables declared within the method.
+Method arguments: Parameters passed to the method.
+Return addresses: The location where the program should resume after a method completes execution.
+Stack frames: Each method invocation creates a stack frame, which contains all of the above. When the method completes, the corresponding stack frame is removed.
+
+Key Characteristics of JVM Stacks
+Thread-specific: Every thread has its own stack.
+Size: The stack size can be fixed or dynamic, and can be specified during thread creation. The default stack size can be adjusted using JVM options (e.g., -Xss).
+Non-contiguous: Memory for the stack does not need to be contiguous, and is allocated in pages or segments by the operating system.
+Automatic cleanup: When a method finishes executing, its stack frame is automatically popped from the stack.
+
+
+4. NATIVE METHOD STACK
+Similar to the JVM stack but used for native (non-Java) method calls, usually via JNI (Java Native Interface).
+
+5. PROGRAM COUNTER (PC) REGISTER
+Each thread has its own PC register.
+It stores the address of the current JVM instruction being executed.
+Helps manage the execution of bytecode instructions.
+
+
+
+
